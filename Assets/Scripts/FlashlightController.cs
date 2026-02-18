@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class FlashlightController : MonoBehaviour
 {
+    //My attempt
+    public AudioSource audioSource;
+    public AudioClip lightOnSound;
+    public AudioClip lightOffSound;
+
     [Header("Flashlight Settings")]
     [Tooltip("The flashlight GameObject (e.g., a Spot Light).")]
     public Transform flashlight;
@@ -93,6 +98,12 @@ public class FlashlightController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             flashlightActive = !flashlightActive; // Toggle the flashlight state
+
+            //play sounds
+            if (flashlightActive)
+                PlayLightOnSound();
+            else
+                PlayLightOffSound();
 
             // Adjust the intensity of the Light component
             if (flashlight != null)
@@ -198,5 +209,17 @@ public class FlashlightController : MonoBehaviour
 
             previousPoint = currentPoint;
         }
+    }
+
+    public void PlayLightOnSound()
+    {
+        if (audioSource != null && lightOnSound != null)
+            audioSource.PlayOneShot(lightOnSound);
+    }
+
+    public void PlayLightOffSound()
+    {
+        if (audioSource != null && lightOffSound != null)
+            audioSource.PlayOneShot(lightOffSound);
     }
 }

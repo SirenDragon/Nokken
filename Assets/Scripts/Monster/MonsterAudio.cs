@@ -6,6 +6,7 @@ public class MonsterAudio : MonoBehaviour
     [Header("Audio Settings")]
     public AudioSource audioSource;
     public AudioClip caughtSound;
+    public AudioClip hurtSound;
     public AudioClip stageStartSound;
     public List<AudioClip> stageMoveSounds;
     public List<AudioClip> ambientSounds;
@@ -16,6 +17,12 @@ public class MonsterAudio : MonoBehaviour
     {
         if (audioSource != null && caughtSound != null)
             audioSource.PlayOneShot(caughtSound);
+    }
+
+    public void PlayHurtSound()
+    {
+        if (audioSource != null && hurtSound != null)
+            audioSource.PlayOneShot(hurtSound);
     }
 
     public void PlayStageMoveSound()

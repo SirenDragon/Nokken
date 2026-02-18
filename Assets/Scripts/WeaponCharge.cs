@@ -1,9 +1,15 @@
+using System.Collections.Generic;
 using TMPro;
-using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class WeaponCharge : MonoBehaviour
 {
+    //My attempt
+    public AudioSource audioSource;
+    public List<AudioClip> chargedSounds;
+
     public Image chargeBar;
 
     float currentCharge = 0f;
@@ -56,6 +62,7 @@ public class WeaponCharge : MonoBehaviour
                 isFullyCharged = true;
                 isCharging = false; // stop growth when full
                 Debug.Log("Weapon fully charged");
+                PlayChargedSound();
             }
         }
 
@@ -109,5 +116,15 @@ public class WeaponCharge : MonoBehaviour
         isFullyCharged = false;
         isCharging = false;
         ChargeBarFiller();
+    }
+
+    public void PlayChargedSound()
+    {
+        Debug.Log("Playing charged sound");
+        //if (audioSource != null && chargedSounds != null && chargedSounds.Count > 0)
+        //{
+            int randomIndex = Random.Range(0, chargedSounds.Count);
+            audioSource.PlayOneShot(chargedSounds[randomIndex]);
+        //}
     }
 }
