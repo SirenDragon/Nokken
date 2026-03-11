@@ -2463,6 +2463,7 @@ GameObject:
   - component: {fileID: 508962805}
   - component: {fileID: 508962804}
   - component: {fileID: 508962809}
+  - component: {fileID: 508962810}
   m_Layer: 0
   m_Name: Charger
   m_TagString: Untagged
@@ -2670,6 +2671,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &508962810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508962803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c63180be7d2e463a898ba018efb84c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPosition: {fileID: 1776119508}
+  minPitch: 1
+  maxPitch: 3
+  maxDistance: 10
+  smooth: 8
 --- !u!1 &549132162
 GameObject:
   m_ObjectHideFlags: 0
@@ -8247,7 +8265,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: a57cb14b78ff5bb44b79f734c32eff04, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.189
+  m_Volume: 0.316
   m_Pitch: 1
   Loop: 1
   Mute: 0
