@@ -14,6 +14,20 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &-8144185073602818520
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 168658eb536338b41b10d02cd1ba65b7
+  m_EffectName: Attenuation
+  m_MixLevel: 283b8673705879a41b465230935d5ac9
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!243 &-7889889985500240224
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -48,6 +62,25 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: -8468079449835562603}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &-5504064825504293692
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RhythmZone
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 59d31eafcb1f46742b1d449e700f82f8
+  m_Children: []
+  m_Volume: 26133a3dbafddfe489d7611d54a8f289
+  m_Pitch: 9ca0ed63808f88840bce9ad28cd94ad3
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -8144185073602818520}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -122,6 +155,7 @@ AudioMixerController:
     - 8a287ee1251134ee7bb93d0a2212abc0
     - f668304fbef1c42f2a65e197119a7b24
     - 7ba69a5beaf03e340b2665901936abc1
+    - 59d31eafcb1f46742b1d449e700f82f8
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -140,6 +174,7 @@ AudioMixerGroupController:
   - {fileID: -5946439142927235472}
   - {fileID: 885693160753683394}
   - {fileID: 4097392489104444563}
+  - {fileID: -5504064825504293692}
   m_Volume: 5b672e02d04c84555a8eae399267c5be
   m_Pitch: cecc216fb494941578476a26278baf73
   m_Send: 00000000000000000000000000000000
@@ -227,7 +262,7 @@ AudioMixerGroupController:
   - {fileID: 2537432283030927890}
   - {fileID: 7950136950062621722}
   m_UserColorIndex: 0
-  m_Mute: 0
+  m_Mute: 1
   m_Solo: 0
   m_BypassEffects: 0
 --- !u!244 &4774236524422915652
