@@ -9,21 +9,29 @@ public class SnapshotTransition : MonoBehaviour
     [Tooltip("The object to measure distance to.")]
     public Transform targetObject;
 
-    [Header("Audio Mixer Snapshots")]
+    [Header("Audio Mixer Snapshots (near -> mid -> far)")]
     public AudioMixer audioMixer;
-    public AudioMixerSnapshot nearSnapshot; // used when player is close
+    public AudioMixerSnapshot nearSnapshot; // used when player is very close
+    public AudioMixerSnapshot midSnapshot;  // used in the middle range
     public AudioMixerSnapshot farSnapshot;  // used when player is far
 
     [Header("Distance Settings")]
     [Tooltip("Distance at which the transition is fully to the far snapshot.")]
     public float maxDistance = 10f;
 
+    [Tooltip("Distance at which mid snapshot is centered. Must be between 0 and maxDistance.")]
+    public float midDistance = 5f;
+
     [Tooltip("How long the mixer should take to apply each transition call.")]
     public float transitionTime = 0.5f;
 
-    // Small threshold so we don't spam TransitionToSnapshots every frame for tiny changes.
+    // small threshold so we don't spam TransitionToSnapshots every frame for tiny changes.
     [SerializeField, HideInInspector]
     private float lastNearWeight = -1f;
+    [SerializeField, HideInInspector]
+    private float lastMidWeight = -1f;
+    [SerializeField, HideInInspector]
+    private float lastFarWeight = -1f;
 
     private void Awake()
     {
@@ -34,33 +42,63 @@ public class SnapshotTransition : MonoBehaviour
         }
 
         if (maxDistance <= 0f) maxDistance = 0.01f;
+        midDistance = Mathf.Clamp(midDistance, 0f, maxDistance);
     }
 
     private void Update()
     {
         // Basic validation
-        if (player == null || targetObject == null || audioMixer == null || nearSnapshot == null || farSnapshot == null)
+        if (player == null || targetObject == null || audioMixer == null || nearSnapshot == null || midSnapshot == null || farSnapshot == null)
             return;
 
-        // Get normalized distance [0..1] where 0 == player on top of target (nearSnapshot)
-        // and 1 == at or beyond maxDistance (farSnapshot).
         float distance = Vector3.Distance(player.position, targetObject.position);
-        float t = Mathf.Clamp01(distance / maxDistance);
+        distance = Mathf.Clamp(distance, 0f, maxDistance);
 
-        // Weight for the near snapshot (1 when close, 0 when far)
-        float nearWeight = 1f - t;
-        float farWeight = t;
+        // Piecewise linear blending:
+        //  - [0 .. midDistance] blend near -> mid
+        //  - (midDistance .. maxDistance] blend mid -> far
+        float nearWeight = 0f;
+        float midWeight = 0f;
+        float farWeight = 0f;
 
-        // Only update mixer when the weight changed noticeably to avoid unnecessary calls.
-        if (Mathf.Abs(nearWeight - lastNearWeight) > 0.01f)
+        if (midDistance <= 0f)
+        {
+            // No mid region: blend near -> far across full range
+            float t = maxDistance <= 0f ? 0f : distance / maxDistance;
+            nearWeight = 1f - t;
+            farWeight = t;
+            midWeight = 0f;
+        }
+        else if (distance <= midDistance)
+        {
+            float t = midDistance <= 0f ? 0f : distance / midDistance;
+            nearWeight = 1f - t;
+            midWeight = t;
+            farWeight = 0f;
+        }
+        else
+        {
+            float denom = (maxDistance - midDistance);
+            float t = denom <= 0f ? 1f : (distance - midDistance) / denom;
+            midWeight = 1f - t;
+            farWeight = t;
+            nearWeight = 0f;
+        }
+
+        // Avoid tiny repeated calls
+        if (Mathf.Abs(nearWeight - lastNearWeight) > 0.01f ||
+            Mathf.Abs(midWeight - lastMidWeight) > 0.01f ||
+            Mathf.Abs(farWeight - lastFarWeight) > 0.01f)
         {
             audioMixer.TransitionToSnapshots(
-                new AudioMixerSnapshot[] { nearSnapshot, farSnapshot },
-                new float[] { nearWeight, farWeight },
+                new AudioMixerSnapshot[] { nearSnapshot, midSnapshot, farSnapshot },
+                new float[] { nearWeight, midWeight, farWeight },
                 transitionTime
             );
 
             lastNearWeight = nearWeight;
+            lastMidWeight = midWeight;
+            lastFarWeight = farWeight;
         }
     }
 }
