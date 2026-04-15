@@ -157,6 +157,6 @@ public class SnapshotZoneManager : MonoBehaviour
         }
 
         audioMixer.TransitionToSnapshots(snapshots.ToArray(), weights.ToArray(), transitionTime);
-        Debug.Log($"[SnapshotZoneManager] TransitionToSnapshots: {snapshots.Count} snapshots, transitionTime={transitionTime:F2}");
+        //Debug.Log($"[SnapshotZoneManager] TransitionToSnapshots: {snapshots.Count} snapshots, transitionTime={transitionTime:F2}");
     }
 }

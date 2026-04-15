@@ -1,10 +1,15 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 
 public class LockedPlayerMovement : MonoBehaviour
 {
+    public AudioSource footSteps;
+    [SerializeField] private AudioResource fallbackFootstepClip;
+
     [Header("Room Settings")]
     [Tooltip("List of room nodes. Each room node contains child look nodes and a transition node.")]
     public List<RoomNode> roomNodes; // List of room nodes
@@ -126,6 +131,7 @@ public class LockedPlayerMovement : MonoBehaviour
                             currentRoomIndex = targetRoomIndex;
                             currentLookNodeIndex = 0;
                             TransformToRoomNode();
+                            playFootsteps();
 
                             // send monster to caught area / respawn
                             if (monsterMovement != null)
@@ -177,6 +183,7 @@ public class LockedPlayerMovement : MonoBehaviour
                 currentRoomIndex = GetNextRoomIndex(transitionNode.doorName);
                 currentLookNodeIndex = 0; // Reset look node index when switching rooms
                 TransformToRoomNode();
+                playFootsteps();
                 break;
             }
         }
@@ -280,6 +287,17 @@ public class LockedPlayerMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void playFootsteps()
+    {
+        if (footSteps == null)
+        {
+            Debug.LogWarning("Footsteps AudioSource is not assigned on LockedPlayerMovement.");
+            return;
+        }
+
+        footSteps.Play();
     }
 }
 
