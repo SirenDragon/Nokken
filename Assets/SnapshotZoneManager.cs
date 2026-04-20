@@ -16,12 +16,15 @@ public class SnapshotZoneManager : MonoBehaviour
     [Tooltip("Snapshot used when the player is not inside any zone.")]
     public AudioMixerSnapshot defaultSnapshot;
 
+    [Tooltip("Optional snapshot to use when the game is paused (Time.timeScale == 0). If null, the manager will look for a snapshot named \"Paused\" on the assigned AudioMixer.")]
+    public AudioMixerSnapshot pausedSnapshot;
+
     [Tooltip("Transition duration when switching/blending snapshots.")]
     public float transitionTime = 0.5f;
 
     [Tooltip("If true, the manager will check the player position every frame using ContainsPoint. Use this when the player teleports.")]
     public bool pollPlayerPosition = true;
-
+    
     [Tooltip("Player transform used for polling. Auto-find by tag if empty.")]
     public Transform player;
 
@@ -30,6 +33,9 @@ public class SnapshotZoneManager : MonoBehaviour
 
     // Active zones currently considered "inside"
     private readonly HashSet<SnapshotZone> activeZones = new HashSet<SnapshotZone>();
+
+    // Track last timeScale so we can react to pause/unpause even if no zone events occur
+    private float lastTimeScale;
 
     private void Awake()
     {
@@ -52,6 +58,8 @@ public class SnapshotZoneManager : MonoBehaviour
         foreach (var z in preexisting)
             RegisterZone(z);
 
+        lastTimeScale = Time.timeScale;
+
         Debug.Log($"[SnapshotZoneManager] Awake: found {preexisting.Length} zones, player={(player != null ? player.name : "null")}, audioMixer={(audioMixer != null ? "assigned" : "null")}");
     }
 
@@ -59,6 +67,13 @@ public class SnapshotZoneManager : MonoBehaviour
     {
         if (pollPlayerPosition && player != null)
             UpdateZonesForPosition(player.position);
+
+        // If timeScale changed (pause/unpause), force mixer update so we switch to/from the paused snapshot.
+        if (Time.timeScale != lastTimeScale)
+        {
+            lastTimeScale = Time.timeScale;
+            UpdateMixer();
+        }
     }
 
     public void RegisterZone(SnapshotZone zone)
@@ -123,6 +138,18 @@ public class SnapshotZoneManager : MonoBehaviour
     private void UpdateMixer()
     {
         if (audioMixer == null) return;
+
+        // If the game is paused (timescale == 0) force the paused snapshot immediately.
+        if (Mathf.Approximately(Time.timeScale, 0f))
+        {
+            AudioMixerSnapshot snap = pausedSnapshot ?? audioMixer.FindSnapshot("Paused");
+            if (snap != null)
+            {
+                // Immediate switch when paused
+                audioMixer.TransitionToSnapshots(new[] { snap }, new[] { 1f }, 0f);
+            }
+            return;
+        }
 
         if (activeZones.Count == 0)
         {
