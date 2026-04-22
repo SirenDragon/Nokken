@@ -1,12 +1,22 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/Styles.uss?fileID=7433441132597879392&amp;guid=4c19fc2dc5c614548a2798c700b1dc05&amp;type=3#Styles" />
-    <ui:VisualElement name="Pause" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.36); visibility: hidden;">
-        <ui:VisualElement style="flex-grow: 1; position: absolute; height: 429px; width: 842px; background-color: rgba(11, 26, 26, 0.65); align-items: center; border-left-color: rgba(183, 183, 183, 0.47); border-right-color: rgba(183, 183, 183, 0.47); border-top-color: rgba(183, 183, 183, 0.47); border-bottom-color: rgba(183, 183, 183, 0.47); border-top-left-radius: 14px; border-top-right-radius: 14px; border-bottom-right-radius: 14px; border-bottom-left-radius: 14px; border-top-width: 6px; border-right-width: 6px; border-bottom-width: 6px; border-left-width: 6px;">
+    <ui:VisualElement name="Pause" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.36); visibility: hidden; position: absolute; top: 0; right: 0; left: 0; bottom: 0;">
+        <ui:VisualElement style="flex-grow: 1; position: absolute; height: 502px; width: 842px; background-color: rgba(11, 26, 26, 0.65); align-items: center; border-left-color: rgba(183, 183, 183, 0.47); border-right-color: rgba(183, 183, 183, 0.47); border-top-color: rgba(183, 183, 183, 0.47); border-bottom-color: rgba(183, 183, 183, 0.47); border-top-left-radius: 14px; border-top-right-radius: 14px; border-bottom-right-radius: 14px; border-bottom-left-radius: 14px; border-top-width: 6px; border-right-width: 6px; border-bottom-width: 6px; border-left-width: 6px;">
             <ui:Label text="PAUSED" style="color: rgba(106, 106, 106, 0.69); -unity-font-definition: url(&quot;project://database/Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Fonts/PerfectDOSVGA437.ttf?fileID=12800000&amp;guid=74a5091d8707f334b9a5c31ef71a64ba&amp;type=3#PerfectDOSVGA437&quot;); font-size: 71px; top: 10px; -unity-text-outline-color: rgb(255, 255, 255); -unity-text-outline-width: 1px;" />
-            <ui:VisualElement name="ButtonContainer" style="flex-grow: 1; top: 35px;">
+            <ui:VisualElement name="ButtonContainer" style="flex-grow: 1; top: 14px;">
                 <ui:Button text="Resume" name="ResumeButton" class="button" />
+                <ui:Button text="Settings" name="SettingsButton" class="button" />
                 <ui:Button text="Quit" name="QuitButton" class="button" />
             </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="Settings" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.36); visibility: hidden; position: absolute; top: 0; right: 0; left: 0; bottom: 0;">
+        <ui:VisualElement style="flex-grow: 1; position: absolute; height: 502px; width: 842px; background-color: rgba(11, 26, 26, 0.65); align-items: center; border-left-color: rgba(183, 183, 183, 0.47); border-right-color: rgba(183, 183, 183, 0.47); border-top-color: rgba(183, 183, 183, 0.47); border-bottom-color: rgba(183, 183, 183, 0.47); border-top-left-radius: 14px; border-top-right-radius: 14px; border-bottom-right-radius: 14px; border-bottom-left-radius: 14px; border-top-width: 6px; border-right-width: 6px; border-bottom-width: 6px; border-left-width: 6px;">
+            <ui:Label text="SETTINGS" style="color: rgba(106, 106, 106, 0.69); -unity-font-definition: url(&quot;project://database/Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Fonts/PerfectDOSVGA437.ttf?fileID=12800000&amp;guid=74a5091d8707f334b9a5c31ef71a64ba&amp;type=3#PerfectDOSVGA437&quot;); font-size: 71px; top: 10px; -unity-text-outline-color: rgb(255, 255, 255); -unity-text-outline-width: 1px;" />
+            <ui:VisualElement name="SliderContainer" style="flex-grow: 1; top: 14px; width: 554px;">
+                <ui:Slider label="MUSIC VOLUME" value="50" high-value="100" name="MusicSlider" show-input-field="true" fill="true" class="slider" />
+            </ui:VisualElement>
+            <ui:Button text="Back" name="SettingsBackButton" class="exitButton" style="bottom: 15px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -121,3 +121,26 @@
     scale: 0.9 0.9;
     rotate: 1deg;
 }
+
+.unity-slider__label {
+    color: rgb(180, 180, 180);
+    -unity-font-definition: url("project://database/Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Fonts/PerfectDOSVGA437.ttf?fileID=12800000&guid=74a5091d8707f334b9a5c31ef71a64ba&type=3#PerfectDOSVGA437");
+    -unity-text-align: upper-left;
+    margin-right: -33px;
+}
+
+.unity-base-slider__dragger {
+    width: 24px;
+    height: 24px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+#unity-text-field {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
