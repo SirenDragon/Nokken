@@ -69,6 +69,7 @@ public class GameUIController : MonoBehaviour
 
     private void OnQuitClicked()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadSceneAsync("menu");
     }
 
@@ -82,7 +83,7 @@ public class GameUIController : MonoBehaviour
     {
         float sliderValue = evt.newValue;
 
-        // Convert 0–100 to 0–1
+        // Convert 0ï¿½100 to 0ï¿½1
         float normalized = sliderValue / 100f;
 
         // Avoid log(0) common bug apparently

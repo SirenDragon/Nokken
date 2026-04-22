@@ -10,6 +10,8 @@ public class Boxes : MonoBehaviour
     public int roomIndex; // Room index for the box
 
     private Renderer boxRenderer;
+    [SerializeField] private Material crateMaterial;
+    [SerializeField] private Material brokenCrateMaterial;
     private Score scoreManager; // Reference to the Score script
     private AudioSource audioSource; // Reference to the AudioSource component
 
@@ -98,7 +100,7 @@ public class Boxes : MonoBehaviour
     void Start()
     {
         boxRenderer = GetComponent<Renderer>();
-        SetBoxColor(Color.blue); // Initial color
+        boxRenderer.material = crateMaterial; // Set initial material to crateMaterial
 
         // Find the Score script in the scene
         scoreManager = Object.FindAnyObjectByType<Score>();
@@ -144,7 +146,8 @@ public class Boxes : MonoBehaviour
         if (isBroken) return; // Prevent breaking an already broken box
 
         isBroken = true;
-        SetBoxColor(Color.red); // Change color to red
+        boxRenderer = GetComponent<Renderer>();
+        boxRenderer.material = brokenCrateMaterial;
         Debug.Log($"{gameObject.name} is broken!");
 
         // Play the breaking sound
@@ -167,7 +170,7 @@ public class Boxes : MonoBehaviour
         if (!isBroken) return; // Prevent repairing an already intact box
 
         isBroken = false;
-        SetBoxColor(Color.blue); // Change color back to blue
+        boxRenderer.material = crateMaterial; // Change material back to crateMaterial
         Debug.Log($"{gameObject.name} has been repaired!");
 
         // Stop the repair sound
@@ -184,14 +187,6 @@ public class Boxes : MonoBehaviour
 
         // Reset the repair sound flag
         isRepairSoundPlaying = false;
-    }
-
-    private void SetBoxColor(Color color)
-    {
-        if (boxRenderer != null)
-        {
-            boxRenderer.material.color = color;
-        }
     }
 
     private void OnMouseEnter()

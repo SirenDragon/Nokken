@@ -54,10 +54,10 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _cellDensity: 150
-    - _gradient_scale: 1.2
+    - _gradient_scale: 0.2
     - _speed: 1
     - _speed_2: 8
-    - _speed_offset: 0.5
+    - _speed_offset: 1.1
     - _twirl_strength: 1
     - _water_power: 8
     m_Colors:
