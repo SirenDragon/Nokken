@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Kabbi
+  m_Name: Kabbi 1
   m_Shader: {fileID: -6465566751694194690, guid: ddb53d156278b9d428b46a5e7d16d389, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -59,16 +59,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Brightness_Rim: 0
-    - Rim_Power: 10
-    - Toon_Ramp_Offset: 0.605
+    - Brightness_Rim: 2.88
+    - Rim_Power: 0
+    - Toon_Ramp_Offset: 0.721
     - Toon_Ramp_Smoothness: 0
-    - _Ambient: 0.18
+    - _Ambient: 0.07
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Toon_Ramp_Offset_Point: 0
+    - _Toon_Ramp_Offset_Point: 0.517
     m_Colors:
-    - Toon_Ramp_Tint: {r: 0.18867925, g: 0.23720329, b: 0.754717, a: 1}
-    - _Color: {r: 0.39919928, g: 0.4528302, b: 0.3951584, a: 1}
+    - Toon_Ramp_Tint: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

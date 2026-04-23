@@ -18,9 +18,15 @@ public class startscreenswitch : MonoBehaviour
 
     private bool isLoadingScene;
 
+    private VisualElement fadeContainer;
+    private VisualElement menuElements;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        fadeContainer = uiDocument.rootVisualElement.Q<VisualElement>("FadePanel");
+        menuElements = uiDocument.rootVisualElement.Q<VisualElement>("Menu");
+
         Invoke("SetStartSnapshot", 0.1f);
         BindStartButton();
     }
@@ -37,6 +43,15 @@ public class startscreenswitch : MonoBehaviour
     void Update()
     {
 
+    }
+
+    private void FadeToBlack(float targetOpacity)
+    {
+        fadeContainer.style.opacity = targetOpacity;
+    }
+    private void RemoveMenuUI(float targetOpacity)
+    {
+        menuElements.style.opacity = targetOpacity;
     }
 
     private void BindStartButton()
@@ -92,6 +107,11 @@ public class startscreenswitch : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(sceneTransitionTime);
         }
+
+        RemoveMenuUI(0f);
+        FadeToBlack(1f);
+
+        yield return new WaitForSecondsRealtime(4f);
 
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneBuildIndex);
 

@@ -4,7 +4,7 @@
         <ui:VisualElement name="TitleContainer" picking-mode="Ignore" style="flex-grow: 1; position: absolute; height: 165px; width: 589px; top: 39px; left: 40px; background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: center; opacity: 1;">
             <ui:Label text="Nøkken" name="Tittle" style="font-size: 130px; -unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Examples%20&amp;%20Extras/Fonts/Bangers.ttf?fileID=12800000&amp;guid=5dd49b3eacc540408c98eee0de38e0f1&amp;type=3#Bangers&quot;); -unity-font-style: normal; -unity-text-outline-color: rgb(20, 29, 25); -unity-text-outline-width: 5px; color: rgb(51, 70, 66); letter-spacing: 20px; width: 492px;" />
         </ui:VisualElement>
-        <ui:VisualElement name="ButtonContainer" picking-mode="Ignore" style="flex-grow: 1; position: absolute; height: 415px; width: 405px; top: 233px; left: 104px; background-color: rgba(20, 58, 48, 0.31); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; justify-content: center; align-items: center;">
+        <ui:VisualElement name="ButtonContainer" picking-mode="Ignore" style="flex-grow: 1; position: absolute; height: 415px; width: 405px; top: 155px; left: 65px; background-color: rgba(20, 58, 48, 0); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; justify-content: center; align-items: center;">
             <ui:Button text="Start" name="StartButton" class="button" />
             <ui:Button text="Controls" name="ControlsButton" class="button" />
             <ui:Button text="Gallery" name="GalleryButton" class="button" />
@@ -29,7 +29,8 @@
                 <ui:Label text="Press A and D to look in different directions" class="decription" />
                 <ui:Label text="Press W to move rooms" class="decription" />
                 <ui:Label text="Hold E on an object to repair it" class="decription" />
-                <ui:Label text="Use Left Click to toggle your flashlight" class="decription" />
+                <ui:Label text="Hold SPACE on a relic to charge your item" name="Label" class="decription" />
+                <ui:Label text="Use LEFT CLICK to toggle your flashlight" class="decription" />
             </ui:VisualElement>
             <ui:Button text="Exit" name="ExitControlsButton" class="exitButton" style="position: absolute; right: 0; bottom: 0; height: 40px; width: 125px; margin-top: 15px; margin-right: 15px; margin-bottom: 15px; margin-left: 15px;" />
         </ui:VisualElement>
