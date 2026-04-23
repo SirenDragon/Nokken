@@ -49,12 +49,12 @@ public class UIController : MonoBehaviour
 
     void Update()
     {
-        var keyboard = Keyboard.current;
-        if (keyboard != null && keyboard.hKey.wasPressedThisFrame)
-        {
-            RemoveMenuUI(0f);
-            FadeToBlack(1f);
-        }
+        // var keyboard = Keyboard.current;
+        // if (keyboard != null && keyboard.hKey.wasPressedThisFrame)
+        // {
+        //     RemoveMenuUI(0f);
+        //     FadeToBlack(1f);
+        // }
     }
 
     private void FadeToBlack(float targetOpacity)
