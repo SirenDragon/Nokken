@@ -39,6 +39,8 @@ public class LockedPlayerMovement : MonoBehaviour
 
     public bool hasWeapon = false;
 
+    public bool isFacingTransitionNode;
+
     private void Start()
     {
         TransformToRoomNode();
@@ -66,6 +68,8 @@ public class LockedPlayerMovement : MonoBehaviour
             if (monsterMovement == null)
                 Debug.LogWarning("MonsterMovement not found in the scene. LockedPlayerMovement QTE integration will not work.");
         }
+
+        UpdateFacingTransitionNode();
     }
 
     private void Awake()
@@ -105,10 +109,14 @@ public class LockedPlayerMovement : MonoBehaviour
     {
         RoomNode currentRoomNode = roomNodes[currentRoomIndex];
 
+        isFacingTransitionNode = false; // Reset flag at the start of movement attempt
+
         foreach (var transitionNode in currentRoomNode.transitionNodes)
         {
             if (IsFacingNode(transitionNode.nodeTransform))
             {
+                isFacingTransitionNode = true;
+
                 // Check if the player is in the same room as the monster and the monster is actively moving through stages
                 if (monsterMovement != null && currentRoomIndex == monsterMovement.currentRoomIndex && monsterMovement.isMovingThroughStages)
                 {
@@ -200,6 +208,8 @@ public class LockedPlayerMovement : MonoBehaviour
 
         // Move to the previous look node
         currentLookNodeIndex = (currentLookNodeIndex - 1 + lookNodeCount) % lookNodeCount;
+
+        UpdateFacingTransitionNode();
     }
 
     private void OnLookRightPerformed(InputAction.CallbackContext context)
@@ -213,6 +223,8 @@ public class LockedPlayerMovement : MonoBehaviour
 
         // Move to the next look node
         currentLookNodeIndex = (currentLookNodeIndex + 1) % lookNodeCount;
+
+        UpdateFacingTransitionNode();
     }
 
     private int GetNextRoomIndex(string doorName)
@@ -243,6 +255,8 @@ public class LockedPlayerMovement : MonoBehaviour
         RoomNode currentRoomNode = roomNodes[currentRoomIndex];
         Debug.Log($"Transitioning to room: {currentRoomNode.transform.name}");
         transform.position = currentRoomNode.transform.position; // Move the player to the room node's position
+
+        UpdateFacingTransitionNode();
     }
 
     // Smoothly rotates the camera to face the selected look node
@@ -259,6 +273,8 @@ public class LockedPlayerMovement : MonoBehaviour
 
         // Smoothly rotate towards the target
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+        UpdateFacingTransitionNode();
     }
 
     private bool IsFacingNode(Transform node)
@@ -270,6 +286,20 @@ public class LockedPlayerMovement : MonoBehaviour
 
         // Check if the player is facing the node within a small angle threshold
         return angle < 30f; // Adjust the angle threshold as needed
+    }
+
+    private void UpdateFacingTransitionNode()
+    {
+        isFacingTransitionNode = false; // Reset flag
+        RoomNode currentRoomNode = roomNodes[currentRoomIndex];
+        foreach (var transitionNode in currentRoomNode.transitionNodes)
+        {
+            if (IsFacingNode(transitionNode.nodeTransform))
+            {
+                isFacingTransitionNode = true;
+                break;
+            }
+        }
     }
 
     private void OnDrawGizmos()

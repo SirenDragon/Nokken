@@ -458,7 +458,6 @@ AudioMixerController:
     - 1b2391612eada4964aca1dd063e03ebc
     - 6a34696d356544b628a746562f80ce97
     - 8a287ee1251134ee7bb93d0a2212abc0
-    - f668304fbef1c42f2a65e197119a7b24
     - 59d31eafcb1f46742b1d449e700f82f8
     - dffaf92ade3d84ba681b5e5ea3354d9f
     - a8ddb828b07413f449f62784f2eb2809
@@ -486,7 +485,6 @@ AudioMixerGroupController:
   - {fileID: -7889889985500240224}
   - {fileID: -2238270647624352621}
   - {fileID: -5946439142927235472}
-  - {fileID: 885693160753683394}
   - {fileID: -5504064825504293692}
   - {fileID: -87644543351843753}
   - {fileID: -2715897861793849213}
@@ -551,25 +549,6 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
---- !u!243 &885693160753683394
-AudioMixerGroupController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Toner
-  m_AudioMixer: {fileID: 24100000}
-  m_GroupID: f668304fbef1c42f2a65e197119a7b24
-  m_Children: []
-  m_Volume: 6d998d3760b4545239582c4133e1ea0e
-  m_Pitch: d8f5c49e7fd3f4df7a619de3f2eaf3ca
-  m_Send: 00000000000000000000000000000000
-  m_Effects:
-  - {fileID: 4774236524422915652}
-  m_UserColorIndex: 0
-  m_Mute: 1
-  m_Solo: 0
-  m_BypassEffects: 0
 --- !u!245 &1956169874256272243
 AudioMixerSnapshotController:
   m_ObjectHideFlags: 0
@@ -715,20 +694,6 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
---- !u!244 &4774236524422915652
-AudioMixerEffectController:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_EffectID: 715162586e88340c99676a2f5ba9327a
-  m_EffectName: Attenuation
-  m_MixLevel: 0a4bb4483d90f474abc66f439ef21689
-  m_Parameters: []
-  m_SendTarget: {fileID: 0}
-  m_EnableWetMix: 0
-  m_Bypass: 0
 --- !u!244 &5076986087406450540
 AudioMixerEffectController:
   m_ObjectHideFlags: 3

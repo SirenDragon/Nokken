@@ -10,9 +10,12 @@ public class GameUIController : MonoBehaviour
 {
     [SerializeField] private UIDocument uiDocument;
     [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private LockedPlayerMovement lockedPlayerMovement;
 
     private VisualElement pauseMenu;
     private VisualElement settingsMenu;
+    private VisualElement visualUI;
+    private VisualElement arrow;
 
     private Slider MusicSlider;
 
@@ -24,16 +27,22 @@ public class GameUIController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //panels and visual elements
         pauseMenu = uiDocument.rootVisualElement.Q<VisualElement>("Pause");
         settingsMenu = uiDocument.rootVisualElement.Q<VisualElement>("Settings");
+        visualUI = uiDocument.rootVisualElement.Q<VisualElement>("VisualUI");
+        arrow = uiDocument.rootVisualElement.Q<VisualElement>("Arrow");
 
+        //sliders
         MusicSlider = uiDocument.rootVisualElement.Q<Slider>("MusicSlider");
 
+        //buttons
         resumeButton = uiDocument.rootVisualElement.Q<Button>("ResumeButton");
         settingsButton = uiDocument.rootVisualElement.Q<Button>("SettingsButton");
         quitButton = uiDocument.rootVisualElement.Q<Button>("QuitButton");
         settingsBackButton = uiDocument.rootVisualElement.Q<Button>("SettingsBackButton");
 
+        //actions
         MusicSlider.RegisterCallback<ChangeEvent<float>>(OnMusicSliderChanged);
 
         resumeButton.clicked += OnResumeClicked;
@@ -42,21 +51,37 @@ public class GameUIController : MonoBehaviour
         settingsBackButton.clicked += OnSettingsBackClicked;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //pausing the game
         var keyboard = Keyboard.current;
         if (keyboard != null && keyboard.escapeKey.wasPressedThisFrame)
         {
             pauseMenu.visible = true;
+            visualUI.style.display = DisplayStyle.None;
             Time.timeScale = 0f;
             audioMixer.SetFloat("lowPass", 200f);
+        }
+
+        ToggleArrow();
+    }
+
+    private void ToggleArrow()
+    {
+        if (lockedPlayerMovement.isFacingTransitionNode)
+        {
+            arrow.visible = true;
+        }
+        else
+        {
+            arrow.visible = false;
         }
     }
 
     private void OnResumeClicked()
     {
         pauseMenu.visible = false;
+        visualUI.style.display = DisplayStyle.Flex;
         Time.timeScale = 1f;
         audioMixer.SetFloat("lowPass", 5000f);
     }
@@ -79,6 +104,7 @@ public class GameUIController : MonoBehaviour
         settingsMenu.visible = false;
     }
 
+    //changing the volume
     private void OnMusicSliderChanged(ChangeEvent<float> evt)
     {
         float sliderValue = evt.newValue;

@@ -19,4 +19,9 @@
             <ui:Button text="Back" name="SettingsBackButton" class="exitButton" style="bottom: 15px;" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement name="VisualUI" style="flex-grow: 1; position: absolute; top: 0%; right: 0%; left: 0%; bottom: 0%; display: flex; background-image: none;">
+        <ui:VisualElement style="flex-grow: 1; position: absolute; top: 0%; left: 0%; right: 0%; bottom: 0%; align-items: center;">
+            <ui:VisualElement name="Arrow" style="flex-grow: 1; width: 134px; position: absolute; bottom: 42px; top: 581px; background-image: url(&quot;project://database/Assets/arrow.png?fileID=2800000&amp;guid=b54bcec4a6603f545b646b5d4d28d9e7&amp;type=3#arrow&quot;); background-color: rgba(55, 55, 55, 0); -unity-background-scale-mode: scale-to-fit; opacity: 0.29; visibility: hidden;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

@@ -8,10 +8,15 @@ public class Generator : MonoBehaviour
 {
     public bool isBroken = false; // Tracks if the generator is broken
 
+    [SerializeField] private Material generatorMaterial; // Material for the generator
+    [SerializeField] private Material brokenGeneratorMaterial; // Material for the broken generator
+
     [Tooltip("The room index this generator belongs to.")]
     public int roomIndex; // Room index for the generator
 
-    private Renderer generatorRenderer;
+    private Renderer[] generatorRenderer;
+    private readonly Dictionary<Renderer, Material[]> originalSharedMaterials = new Dictionary<Renderer, Material[]>();
+
     private Score scoreManager; // Reference to the Score script
     private AudioSource audioSource; // Reference to the AudioSource component
 
@@ -44,16 +49,8 @@ public class Generator : MonoBehaviour
     [Tooltip("GameObjects to disable when the generator is broken (e.g. lamp parent).")]
     public GameObject[] objectsToToggle;
 
-    [Tooltip("Lights to turn off when the generator is broken.")]
-    public Light[] lightsToToggle;
-
-    [Tooltip("Renderers to disable when the generator is broken (useful for emissive meshes).")]
-    public Renderer[] renderersToToggle;
-
     // runtime caches so we can restore original states when repaired
     private Dictionary<GameObject, bool> originalActive = new Dictionary<GameObject, bool>();
-    private Dictionary<Light, float> originalLightIntensity = new Dictionary<Light, float>();
-    private Dictionary<Renderer, bool> originalRendererEnabled = new Dictionary<Renderer, bool>();
 
     void Awake()
     {
@@ -63,8 +60,7 @@ public class Generator : MonoBehaviour
 
     void Start()
     {
-        generatorRenderer = GetComponent<Renderer>();
-        SetGeneratorColor(Color.green); // Initial color for the generator
+        generatorRenderer = GetComponentsInChildren<Renderer>(true);
 
         // Find the Score script in the scene
         scoreManager = FindObjectOfType<Score>();
@@ -103,26 +99,6 @@ public class Generator : MonoBehaviour
                 if (go == null) continue;
                 if (!originalActive.ContainsKey(go))
                     originalActive[go] = go.activeSelf;
-            }
-        }
-
-        if (lightsToToggle != null)
-        {
-            foreach (var l in lightsToToggle)
-            {
-                if (l == null) continue;
-                if (!originalLightIntensity.ContainsKey(l))
-                    originalLightIntensity[l] = l.intensity;
-            }
-        }
-
-        if (renderersToToggle != null)
-        {
-            foreach (var r in renderersToToggle)
-            {
-                if (r == null) continue;
-                if (!originalRendererEnabled.ContainsKey(r))
-                    originalRendererEnabled[r] = r.enabled;
             }
         }
     }
@@ -230,7 +206,10 @@ public class Generator : MonoBehaviour
         if (isBroken) return; // Prevent breaking an already broken generator
 
         isBroken = true;
-        SetGeneratorColor(Color.red); // Change color to red
+        foreach (Renderer rend in generatorRenderer)
+        {
+            rend.material = brokenGeneratorMaterial; // Change material to indicate breakage
+        }
         Debug.Log($"{gameObject.name} is broken!");
 
         // apply visual / object disabling for break
@@ -275,7 +254,10 @@ public class Generator : MonoBehaviour
         if (!isBroken) return; // Prevent repairing an already intact generator
 
         isBroken = false;
-        SetGeneratorColor(Color.green); // Change color back to green
+        foreach (Renderer rend in generatorRenderer)
+        {
+            rend.material = generatorMaterial; // Change material back to indicate repair
+        }
         Debug.Log($"{gameObject.name} has been repaired!");
 
         var profile = FindObjectOfType<UserProfileData>();
@@ -313,65 +295,16 @@ public class Generator : MonoBehaviour
             {
                 if (go == null) continue;
                 if (broken)
-                    go.SetActive(false);
+                    go.SetActive(true);
                 else
                 {
                     bool original;
                     if (originalActive.TryGetValue(go, out original))
                         go.SetActive(original);
                     else
-                        go.SetActive(true);
+                        go.SetActive(false);
                 }
             }
-        }
-
-        // toggle Lights (set intensity to 0 and disable if broken, restore intensity when repaired)
-        if (lightsToToggle != null)
-        {
-            foreach (var l in lightsToToggle)
-            {
-                if (l == null) continue;
-                if (broken)
-                {
-                    // store intensity already cached in Start
-                    l.intensity = 0f;
-                    l.enabled = false;
-                }
-                else
-                {
-                    float orig = 1f;
-                    if (originalLightIntensity.TryGetValue(l, out orig))
-                        l.intensity = orig;
-                    l.enabled = true;
-                }
-            }
-        }
-
-        // toggle renderers
-        if (renderersToToggle != null)
-        {
-            foreach (var r in renderersToToggle)
-            {
-                if (r == null) continue;
-                if (broken)
-                    r.enabled = false;
-                else
-                {
-                    bool orig = true;
-                    if (originalRendererEnabled.TryGetValue(r, out orig))
-                        r.enabled = orig;
-                    else
-                        r.enabled = true;
-                }
-            }
-        }
-    }
-
-    private void SetGeneratorColor(Color color)
-    {
-        if (generatorRenderer != null)
-        {
-            generatorRenderer.material.color = color;
         }
     }
 

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Crate
+  m_Name: Lamp 1
   m_Shader: {fileID: -6465566751694194690, guid: ddb53d156278b9d428b46a5e7d16d389, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - MainTex:
-        m_Texture: {fileID: 2800000, guid: a1a2d77d88ae0c041829228126cb6655, type: 3}
+        m_Texture: {fileID: 2800000, guid: 530f1830c072ab24aba80cbd0b3bd74e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Mask_R_Emission:
@@ -50,7 +50,7 @@ Material:
     - Rim_Power: 5
     - Toon_Ramp_Offset: 0.5
     - Toon_Ramp_Smoothness: 0
-    - _Ambient: 0.45
+    - _Ambient: 11.11
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Toon_Ramp_Offset_Point: 0.5
@@ -59,7 +59,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &1786517697489966037
+--- !u!114 &2676733151512032258
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

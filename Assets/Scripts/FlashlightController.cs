@@ -69,7 +69,7 @@ public class FlashlightController : MonoBehaviour
                 Light lightComponent = flashlight.GetComponent<Light>();
                 if (lightComponent != null)
                 {
-                    lightComponent.intensity = flashlightActive ? 15f : 0f;
+                    lightComponent.intensity = flashlightActive ? 100f : 0f;
                 }
             }
         }
@@ -85,7 +85,7 @@ public class FlashlightController : MonoBehaviour
         while (true)
         {
             // Randomly adjust the intensity to create a flickering effect
-            lightComponent.intensity = Random.Range(0.5f, 14f);
+            lightComponent.intensity = Random.Range(10f, 80f);
 
             // Wait for a short random duration before changing intensity again
             yield return new WaitForSeconds(Random.Range(0.02f, 0.1f));
@@ -111,7 +111,7 @@ public class FlashlightController : MonoBehaviour
                 Light lightComponent = flashlight.GetComponent<Light>();
                 if (lightComponent != null)
                 {
-                    lightComponent.intensity = flashlightActive ? 15f : 0f; // Set intensity to 1 when active, 0 when inactive
+                    lightComponent.intensity = flashlightActive ? 100f : 0f; // Set intensity to 1 when active, 0 when inactive
                 }
             }
         }

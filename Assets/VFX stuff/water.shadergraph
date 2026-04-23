@@ -761,8 +761,8 @@
     "m_ObjectId": "0d8cd35219154cdeb466c717c60b69e7",
     "m_Title": "Time Stuff",
     "m_Position": {
-        "x": -528.5,
-        "y": -38.0
+        "x": -528.0,
+        "y": -37.99999237060547
     }
 }
 
@@ -795,7 +795,7 @@
     "m_ObjectId": "1259a8ae27b4433bb3a8b8d7d00bae2b",
     "m_Title": "Radial and Twirl",
     "m_Position": {
-        "x": -1764.0,
+        "x": -1763.9998779296875,
         "y": -329.0
     }
 }
@@ -2511,7 +2511,7 @@
     "m_Title": "Noise",
     "m_Position": {
         "x": -1557.0,
-        "y": 687.5
+        "y": 687.0
     }
 }
 
