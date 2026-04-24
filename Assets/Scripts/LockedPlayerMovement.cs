@@ -234,13 +234,38 @@ public class LockedPlayerMovement : MonoBehaviour
         switch (doorName)
         {
             case "Deck":
-                return 0; // Transition to room index 0
+                return 0;
+
             case "Helm":
-                return 1; // Transition to room index 1
+                return 1;
+
             case "Generator":
-                return 2; // Transition to room index 2
-            case "Hide":
-                return 3; // Transition to room index 3
+                return 2;
+
+            case "BackRight":
+                return 3;
+
+            case "TopHatch":
+                return 4;
+
+            case "CargoEntrance":
+                return 5;
+
+            case "CargoInterior":
+                return 6;
+
+            case "RightDoor":
+                return 7;
+
+            case "LeftDoor":
+                return 8;
+
+            case "BeforeBow":
+                return 9;
+
+            case "BackLeft":
+                return 10;
+
             default:
                 Debug.LogWarning($"Unknown door name: {doorName}");
                 return currentRoomIndex; // Stay in the current room if no match
