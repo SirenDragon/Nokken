@@ -5,6 +5,8 @@ using TMPro;
 
 public class ButtonMash : MonoBehaviour
 {
+    [SerializeField] AudioSource AttackedSound;
+
     [Header("UI")]
     public GameObject qteCanvas; // Assign the QTE Canvas / Panel here
     public TextMeshProUGUI keyPrompt;
@@ -87,6 +89,10 @@ public class ButtonMash : MonoBehaviour
                     qteCanvas.SetActive(false);
 
                 Debug.Log("Ultimate QTE succeeded!");
+                if (AttackedSound != null)
+                {
+                    AttackedSound.Play();
+                }
                 // Optionally drain the weapon so player can't reuse it immediately
                 if (weaponCharge != null)
                     weaponCharge.ResetCharge();

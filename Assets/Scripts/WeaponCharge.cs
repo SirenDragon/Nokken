@@ -6,6 +6,12 @@ using UnityEngine.UI;
 
 public class WeaponCharge : MonoBehaviour
 {
+    private Renderer[] chargerRenderer;
+    private readonly Dictionary<Renderer, Material[]> originalSharedMaterials = new Dictionary<Renderer, Material[]>();
+
+    [SerializeField] private Material chargerOffMaterial;
+    [SerializeField] private Material chargerOnMaterial;
+
     //My attempt
     public AudioSource audioSource;
     public List<AudioClip> chargedSounds;
@@ -36,6 +42,11 @@ public class WeaponCharge : MonoBehaviour
             normalChargeColor = chargeBar.color;
     }
 
+    private void Start()
+    {
+        chargerRenderer = GetComponentsInChildren<Renderer>(true);
+    }
+
     void Update()
     {
         // If charging was in progress but charger permission removed, stop charging
@@ -60,6 +71,10 @@ public class WeaponCharge : MonoBehaviour
             {
                 currentCharge = maxCharge;
                 isFullyCharged = true;
+                foreach (Renderer rend in chargerRenderer)
+                {
+                    rend.material = chargerOnMaterial; // Change material to indicate full charge
+                }
                 isCharging = false; // stop growth when full
                 Debug.Log("Weapon fully charged");
                 PlayChargedSound();
@@ -115,6 +130,10 @@ public class WeaponCharge : MonoBehaviour
         currentCharge = 0f;
         isFullyCharged = false;
         isCharging = false;
+        foreach (Renderer rend in chargerRenderer)
+        {
+            rend.material = chargerOffMaterial;
+        }
         ChargeBarFiller();
     }
 
