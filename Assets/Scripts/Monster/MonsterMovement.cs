@@ -268,6 +268,7 @@ public class MonsterMovement : MonoBehaviour
         }
     }
 
+    // ...file header unchanged...
     void MoveToStageIndex(int index)
     {
         var room = rooms.Find(r => r.roomIndex == currentRoomIndex);
@@ -286,7 +287,11 @@ public class MonsterMovement : MonoBehaviour
 
         // set animation stage if provided
         if (monsterStages != null)
-            monsterStages.SetStage(index);
+        {
+            // Use the new overload that takes room index + stage index so you can assign
+            // different animation clips per room/position in the inspector.
+            monsterStages.SetStage(currentRoomIndex, index);
+        }
     }
 
     // ---------------- State: FinalStageCountdown ----------------
