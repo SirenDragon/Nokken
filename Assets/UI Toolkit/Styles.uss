@@ -19,9 +19,9 @@
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
     border-bottom-left-radius: 2px;
-    width: 256px;
-    height: 68px;
-    font-size: 36px;
+    width: 306px;
+    height: 89px;
+    font-size: 46px;
     -unity-font-style: bold;
     -unity-font-definition: url("project://database/Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Fonts/PerfectDOSVGA437.ttf?fileID=12800000&guid=74a5091d8707f334b9a5c31ef71a64ba&type=3#PerfectDOSVGA437");
     border-left-color: rgb(137, 127, 109);
@@ -32,8 +32,8 @@
     border-right-width: 4px;
     border-bottom-width: 4px;
     border-left-width: 4px;
-    margin-top: -2px;
-    margin-bottom: 30px;
+    margin-top: 6px;
+    margin-bottom: 56px;
     color: rgb(164, 148, 121);
     -unity-text-outline-color: rgb(58, 48, 48);
     -unity-text-outline-width: 2px;
@@ -143,4 +143,28 @@
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
+}
+
+.unity-progress-bar__progress {
+    height: 30px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgb(127, 189, 202);
+    top: -3px;
+}
+
+.unity-progress-bar__background {
+    flex-shrink: 0;
+    height: 30px;
+    background-color: rgba(67, 79, 125, 0.22);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-left-color: rgba(97, 216, 255, 0.5);
+    border-right-color: rgba(97, 216, 255, 0.5);
+    border-top-color: rgba(97, 216, 255, 0.5);
+    border-bottom-color: rgba(97, 216, 255, 0.5);
 }

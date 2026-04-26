@@ -2,10 +2,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class WeaponCharge : MonoBehaviour
 {
+    [SerializeField] private UIDocument uiDocument;
+
+    private ProgressBar chargerProgress;
+
     private Renderer[] chargerRenderer;
     private readonly Dictionary<Renderer, Material[]> originalSharedMaterials = new Dictionary<Renderer, Material[]>();
 
@@ -29,22 +33,20 @@ public class WeaponCharge : MonoBehaviour
     [HideInInspector]
     public bool allowCharging = false;
 
-    [Header("Colors")]
-    [Tooltip("Color used when the charge bar is full.")]
-    public Color fullChargeColor = Color.cyan;
-
-    // stored initial color to restore when not full
-    private Color normalChargeColor = Color.white;
-
-    void Awake()
-    {
-        if (chargeBar != null)
-            normalChargeColor = chargeBar.color;
-    }
-
     private void Start()
     {
         chargerRenderer = GetComponentsInChildren<Renderer>(true);
+
+        if (uiDocument != null)
+        {
+            chargerProgress = uiDocument.rootVisualElement.Q<ProgressBar>("ChargerProgress");
+            if (chargerProgress != null)
+            {
+                chargerProgress.lowValue = 0f;
+                chargerProgress.highValue = maxCharge;
+                chargerProgress.value = currentCharge;
+            }
+        }
     }
 
     void Update()
@@ -86,15 +88,11 @@ public class WeaponCharge : MonoBehaviour
 
     void ChargeBarFiller()
     {
-        if (chargeBar == null) return;
-
-        chargeBar.fillAmount = currentCharge / maxCharge;
-
-        // change color to cyan when fully charged, revert when not
-        if (currentCharge >= maxCharge)
-            chargeBar.color = fullChargeColor;
-        else
-            chargeBar.color = normalChargeColor;
+        // Prefer UI Toolkit ProgressBar when available
+        if (chargerProgress != null)
+        {
+            chargerProgress.value = currentCharge;
+        }
     }
 
     public void Add(float additionalPoints)
@@ -140,10 +138,7 @@ public class WeaponCharge : MonoBehaviour
     public void PlayChargedSound()
     {
         Debug.Log("Playing charged sound");
-        //if (audioSource != null && chargedSounds != null && chargedSounds.Count > 0)
-        //{
-            int randomIndex = Random.Range(0, chargedSounds.Count);
-            audioSource.PlayOneShot(chargedSounds[randomIndex]);
-        //}
+        int randomIndex = Random.Range(0, chargedSounds.Count);
+        audioSource.PlayOneShot(chargedSounds[randomIndex]);
     }
 }
