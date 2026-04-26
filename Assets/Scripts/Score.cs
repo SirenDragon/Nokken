@@ -1,8 +1,21 @@
-using UnityEngine;
 using TMPro; // Required for TextMeshPro components
+using UnityEngine;
+using UnityEngine.UIElements;
+using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class Score : MonoBehaviour
 {
+    [SerializeField] private UIDocument uiDocument;
+    [SerializeField] private AudioMixer audioMixer;
+
+    private VisualElement gameWon;
+    private VisualElement visualUI;
+
+    private Button restartGameWonButton;
+    private Button quitGameWonButton;
+
+
     [Header("Box Score Settings")]
     [Tooltip("The starting score for boxes.")]
     public int startingBoxScore = 5; // Initial score for boxes
@@ -33,25 +46,27 @@ public class Score : MonoBehaviour
     private bool isTimerPaused = false; // Tracks whether the timer is paused
 
     [Header("Win UI")]
-    [Tooltip("Optional 'You Win' UI panel to enable when the timer reaches 0.")]
-    public GameObject youWinPanel;
     [Tooltip("If true, pause Unity time (Time.timeScale = 0) when the player wins.")]
     public bool pauseGameOnWin = true;
     [Tooltip("If true, pause audio via AudioListener.pause when the player wins.")]
     public bool pauseAudioOnWin = true;
-    [Tooltip("If true, disable LockedPlayerMovement components when the player wins.")]
-    public bool disablePlayerMovementOnWin = true;
 
     [Header("Optional GameOver handler")]
     [Tooltip("Optional reference to PlayerFail to handle losing the game when boxes reach 0. If not set, the script will try to find one automatically.")]
     public PlayerFail playerFail;
 
-    // store previous time settings so we can restore them if needed
-    private float previousTimeScale = 1f;
-    private float previousFixedDeltaTime = 0.02f;
-
-    void Start()
+      void Start()
     {
+        gameWon = uiDocument.rootVisualElement.Q<VisualElement>("GameWon");
+
+        restartGameWonButton = uiDocument.rootVisualElement.Q<Button>("RestartGameWonButton");
+        quitGameWonButton = uiDocument.rootVisualElement.Q<Button>("QuitGameWonButton");
+        visualUI = uiDocument.rootVisualElement.Q<VisualElement>("VisualUI");
+
+
+        restartGameWonButton.clicked += OnRestartGameWonClicked;
+        quitGameWonButton.clicked += OnQuitGameWonClicked;
+
         // Initialize scores
         currentBoxScore = startingBoxScore;
         currentGeneratorScore = startingGeneratorScore;
@@ -63,14 +78,6 @@ public class Score : MonoBehaviour
         UpdateBoxScoreText();
         UpdateGeneratorScoreText();
         UpdateTimerText();
-
-        // hide win UI at start
-        if (youWinPanel != null)
-            youWinPanel.SetActive(false);
-
-        // cache previous time values
-        previousTimeScale = Time.timeScale;
-        previousFixedDeltaTime = Time.fixedDeltaTime;
 
         // try to auto-find PlayerFail if not assigned
         if (playerFail == null)
@@ -226,35 +233,24 @@ public class Score : MonoBehaviour
         HandleWin();
     }
 
+    void OnRestartGameWonClicked()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadSceneAsync("SampleScene");
+    }
+
+    void OnQuitGameWonClicked()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadSceneAsync("menu");
+    }
+
     private void HandleWin()
     {
         // stop the timer
         isTimerPaused = true;
-
-        // show win UI
-        if (youWinPanel != null)
-            youWinPanel.SetActive(true);
-
-        // optional global effects
-        if (pauseGameOnWin)
-        {
-            Time.timeScale = 0f;
-            Time.fixedDeltaTime = previousFixedDeltaTime * Time.timeScale;
-        }
-
-        if (pauseAudioOnWin)
-        {
-            AudioListener.pause = true;
-        }
-
-        if (disablePlayerMovementOnWin)
-        {
-            var movers = FindObjectsOfType<LockedPlayerMovement>();
-            foreach (var m in movers)
-            {
-                if (m != null)
-                    m.enabled = false;
-            }
-        }
+        visualUI.style.display = DisplayStyle.None;
+        Time.timeScale = 0f;
+        gameWon.visible = true;
     }
 }

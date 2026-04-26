@@ -26,8 +26,11 @@ public class FlashlightController : MonoBehaviour
     [Tooltip("The angle of the field of view in degrees.")]
     public float viewAngle = 45f;
 
-    [Tooltip("Layer mask to filter objects in the field of view.")]
+    [Tooltip("Layer mask to filter objects in the field of view (targets).")]
     public LayerMask targetMask;
+
+    [Tooltip("Layer mask containing possible obstructing layers (walls, geometry). Include enemy layers as well if needed for raycast checks.")]
+    public LayerMask obstructionMask = ~0;
 
     [Header("Detection State")]
     [Tooltip("True if an enemy is within the field of view.")]
@@ -37,9 +40,12 @@ public class FlashlightController : MonoBehaviour
     // Add a public getter
     public bool IsSpotted => isSpotted;
 
+    [Header("Debug / Tuning")]
+    [Tooltip("Draw raycasts and hit info in Scene view.")]
+    public bool debugDrawRays = true;
 
-
-
+    [Tooltip("Small offset to move ray origin forward to avoid starting inside geometry.")]
+    public float originOffset = 0.1f;
 
     [Header("Flashlight State")]
     [Tooltip("True if the flashlight is currently active.")]
@@ -153,33 +159,93 @@ public class FlashlightController : MonoBehaviour
 
         isSpotted = false; // Reset the spotted state
 
-        // Find all objects within the view distance
+        if (flashlight == null) return;
+
+        // find potential targets by overlap using the targetMask
         Collider[] targetsInViewRadius = Physics.OverlapSphere(flashlight.position, viewDistance, targetMask);
+
+        // combine layers for raycast checks so we consider both targets and obstructions
+        int raycastMask = targetMask.value | obstructionMask.value;
 
         foreach (Collider target in targetsInViewRadius)
         {
-            // Check if the target is tagged as "enemy"
-            if (target.CompareTag("enemy"))
-            {
-                Vector3 directionToTarget = (target.transform.position - flashlight.position).normalized;
+            if (target == null) continue;
 
-                // Check if the target is within the view angle
-                if (Vector3.Angle(flashlight.forward, directionToTarget) < viewAngle / 2)
+            // Check if the target is tagged as "enemy"
+            if (!target.CompareTag("enemy")) continue;
+
+            // direction from flashlight origin -> target closest point to account for big colliders
+            Vector3 targetPoint = target.ClosestPoint(flashlight.position);
+            Vector3 directionToTarget = (targetPoint - (flashlight.position + flashlight.forward * originOffset)).normalized;
+
+            // Check angle using flashlight.forward (ensure your spotlight's forward is aligned)
+            if (Vector3.Angle(flashlight.forward, directionToTarget) < viewAngle / 2f)
+            {
+                // Raycast against combined mask to see what we hit first
+                Vector3 rayOrigin = flashlight.position + flashlight.forward * originOffset;
+                if (Physics.Raycast(rayOrigin, directionToTarget, out RaycastHit hit, viewDistance, raycastMask, QueryTriggerInteraction.Ignore))
                 {
-                    // Perform a raycast to ensure there are no obstacles blocking the view
-                    if (Physics.Raycast(flashlight.position, directionToTarget, out RaycastHit hit, viewDistance))
+                    bool hitIsEnemy = hit.collider.CompareTag("enemy");
+
+                    if (debugDrawRays)
                     {
-                        if (hit.collider.CompareTag("enemy"))
-                        {
-                            isSpotted = true;
-                            break; // Exit the loop as soon as an enemy is spotted
-                        }
+                        Debug.DrawLine(rayOrigin, hit.point, hitIsEnemy ? Color.green : Color.red, 0.5f);
+                        Debug.DrawRay(hit.point, Vector3.up * 0.2f, hitIsEnemy ? Color.green : Color.red, 0.5f);
+                        Debug.Log($"Flashlight ray hit: {hit.collider.name} (Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}), isEnemy={hitIsEnemy}");
+                    }
+
+                    if (hitIsEnemy)
+                    {
+                        isSpotted = true;
+                        break;
+                    }
+                    // else blocked by something else; continue checking other targets
+                }
+                else
+                {
+                    if (debugDrawRays)
+                    {
+                        Debug.DrawRay(rayOrigin, directionToTarget * viewDistance, Color.yellow, 0.5f);
+                        Debug.Log("Flashlight raycast did not hit any collider (maybe layers excluded).");
                     }
                 }
             }
         }
     }
 
+    /// <summary>
+    /// Returns a list of colliders that are currently visible by the flashlight (useful for debug UI).
+    /// </summary>
+    public List<Collider> GetCurrentlyVisibleTargets()
+    {
+        List<Collider> visible = new List<Collider>();
+        if (flashlight == null || !flashlightActive) return visible;
+
+        Collider[] targets = Physics.OverlapSphere(flashlight.position, viewDistance, targetMask);
+        int raycastMask = targetMask.value | obstructionMask.value;
+        Vector3 rayOrigin = flashlight.position + flashlight.forward * originOffset;
+
+        foreach (Collider c in targets)
+        {
+            if (c == null) continue;
+            if (!c.CompareTag("enemy")) continue;
+
+            Vector3 targetPoint = c.ClosestPoint(flashlight.position);
+            Vector3 dir = (targetPoint - rayOrigin).normalized;
+
+            if (Vector3.Angle(flashlight.forward, dir) >= viewAngle / 2f) continue;
+
+            if (Physics.Raycast(rayOrigin, dir, out RaycastHit hit, viewDistance, raycastMask, QueryTriggerInteraction.Ignore))
+            {
+                if (hit.collider == c || hit.collider.transform.IsChildOf(c.transform) || c.transform.IsChildOf(hit.collider.transform))
+                {
+                    visible.Add(c);
+                }
+            }
+        }
+
+        return visible;
+    }
 
     private void OnDrawGizmosSelected()
     {

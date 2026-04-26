@@ -278,8 +278,8 @@ public class MonsterMovement : MonoBehaviour
         Transform stage = room.stagePositions[index];
         if (stage == null) return;
 
-        monster.transform.position = stage.position;
-        Debug.Log($"Monster moved to Stage {index} at Position: {stage.position}");
+        monster.transform.SetPositionAndRotation(stage.position, stage.rotation);
+        Debug.Log($"Monster moved to Stage {index} at Position: {stage.position} and Rotation: {stage.rotation.eulerAngles}");
 
         // play stage move sound
         if (monsterAudio != null)
