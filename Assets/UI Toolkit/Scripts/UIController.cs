@@ -13,6 +13,8 @@ public class UIController : MonoBehaviour
     private VisualElement menuElements;
     private VisualElement galleryOverlay;
     private VisualElement controlsOverlay;
+    private VisualElement controlsPanel;
+    private VisualElement goalPanel;
 
     private Button startButton;
     private Button controlsButton;
@@ -21,6 +23,8 @@ public class UIController : MonoBehaviour
     private Button exitControlsButton;
     private Button pokeButton;
     private Button exitButton;
+    private Button goalButton;
+    private Button backButton;
 
 
     void Start()
@@ -29,7 +33,8 @@ public class UIController : MonoBehaviour
         menuElements = uiDocument.rootVisualElement.Q<VisualElement>("Menu");
         galleryOverlay = uiDocument.rootVisualElement.Q<VisualElement>("Gallery");
         controlsOverlay = uiDocument.rootVisualElement.Q<VisualElement>("Controls");
-
+        controlsPanel = uiDocument.rootVisualElement.Q<VisualElement>("ControlsPanel");
+        goalPanel = uiDocument.rootVisualElement.Q<VisualElement>("GoalPanel");
 
         //Buttons
         startButton = uiDocument.rootVisualElement.Q<Button>("StartButton");
@@ -38,12 +43,16 @@ public class UIController : MonoBehaviour
         controlsButton = uiDocument.rootVisualElement.Q<Button>("ControlsButton");
         pokeButton = uiDocument.rootVisualElement.Q<Button>("PokeButton");
         exitButton = uiDocument.rootVisualElement.Q<Button>("ExitButton");
+        goalButton = uiDocument.rootVisualElement.Q<Button>("GoalButton");
+        backButton = uiDocument.rootVisualElement.Q<Button>("BackButton");
 
         exitGalleryButton = uiDocument.rootVisualElement.Q<Button>("ExitGalleryButton");
         exitControlsButton = uiDocument.rootVisualElement.Q<Button>("ExitControlsButton");
 
         controlsButton.clicked += OnControlsClicked;
         galleryButton.clicked += OnGalleryClicked;
+        goalButton.clicked += OnGoalClicked;
+        backButton.clicked += OnBackClicked;
         exitGalleryButton.clicked += OnExitGalleryClicked;
         exitControlsButton.clicked += OnExitControlsClicked;
         pokeButton.clicked += OnPokeClicked;
@@ -108,13 +117,25 @@ public class UIController : MonoBehaviour
     void OnControlsClicked()
     {
         menuElements.visible = false;
-        controlsOverlay.visible = true;
+        controlsOverlay.style.display = DisplayStyle.Flex;
     }
 
     void OnExitControlsClicked()
     {
-        controlsOverlay.visible = false;
+        controlsOverlay.style.display = DisplayStyle.None;
         menuElements.visible = true;
 
+    }
+
+    void OnGoalClicked()
+    {
+        controlsPanel.visible = false;
+        goalPanel.visible = true;
+    }
+
+    void OnBackClicked()
+    {
+        goalPanel.visible = false;
+        controlsPanel.visible = true;
     }
 }
