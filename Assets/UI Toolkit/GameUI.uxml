@@ -3,7 +3,7 @@
     <ui:VisualElement name="Pause" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.36); visibility: hidden; position: absolute; top: 0; right: 0; left: 0; bottom: 0;">
         <ui:VisualElement style="flex-grow: 1; position: absolute; height: 502px; width: 842px; background-color: rgba(11, 26, 26, 0.65); align-items: center; border-left-color: rgba(183, 183, 183, 0.47); border-right-color: rgba(183, 183, 183, 0.47); border-top-color: rgba(183, 183, 183, 0.47); border-bottom-color: rgba(183, 183, 183, 0.47); border-top-left-radius: 14px; border-top-right-radius: 14px; border-bottom-right-radius: 14px; border-bottom-left-radius: 14px; border-top-width: 6px; border-right-width: 6px; border-bottom-width: 6px; border-left-width: 6px;">
             <ui:Label text="PAUSED" style="color: rgba(106, 106, 106, 0.69); -unity-font-definition: url(&quot;project://database/Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Fonts/PerfectDOSVGA437.ttf?fileID=12800000&amp;guid=74a5091d8707f334b9a5c31ef71a64ba&amp;type=3#PerfectDOSVGA437&quot;); font-size: 71px; top: 10px; -unity-text-outline-color: rgb(255, 255, 255); -unity-text-outline-width: 1px;" />
-            <ui:VisualElement name="ButtonContainer" style="flex-grow: 1; top: 62px;">
+            <ui:VisualElement name="ButtonContainer" style="flex-grow: 1; top: -9px;">
                 <ui:Button text="Resume" name="ResumeButton" class="button" />
                 <ui:Button text="Settings" name="SettingsButton" class="button" />
                 <ui:Button text="Quit" name="QuitButton" class="button" />

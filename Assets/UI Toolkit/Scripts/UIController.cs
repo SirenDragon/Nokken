@@ -20,6 +20,7 @@ public class UIController : MonoBehaviour
     private Button exitGalleryButton;
     private Button exitControlsButton;
     private Button pokeButton;
+    private Button exitButton;
 
 
     void Start()
@@ -36,6 +37,7 @@ public class UIController : MonoBehaviour
         galleryButton = uiDocument.rootVisualElement.Q<Button>("GalleryButton");
         controlsButton = uiDocument.rootVisualElement.Q<Button>("ControlsButton");
         pokeButton = uiDocument.rootVisualElement.Q<Button>("PokeButton");
+        exitButton = uiDocument.rootVisualElement.Q<Button>("ExitButton");
 
         exitGalleryButton = uiDocument.rootVisualElement.Q<Button>("ExitGalleryButton");
         exitControlsButton = uiDocument.rootVisualElement.Q<Button>("ExitControlsButton");
@@ -45,6 +47,8 @@ public class UIController : MonoBehaviour
         exitGalleryButton.clicked += OnExitGalleryClicked;
         exitControlsButton.clicked += OnExitControlsClicked;
         pokeButton.clicked += OnPokeClicked;
+
+        exitButton.clicked += OnExitButtonClicked;
     }
 
     void Update()
@@ -65,6 +69,11 @@ public class UIController : MonoBehaviour
     private void RemoveMenuUI(float targetOpacity)
     {
         menuElements.style.opacity = targetOpacity;
+    }
+
+    void OnExitButtonClicked()
+    {
+        Application.Quit();
     }
 
     //POKE

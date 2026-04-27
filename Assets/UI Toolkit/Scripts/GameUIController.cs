@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.Audio;
-using UnityEditor.SettingsManagement;
 
 public class GameUIController : MonoBehaviour
 {

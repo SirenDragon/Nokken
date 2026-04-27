@@ -10,8 +10,8 @@ public class MonsterAudio : MonoBehaviour
     public AudioClip stageStartSound;
     public List<AudioClip> stageMoveSounds;
     public List<AudioClip> ambientSounds;
-    public float minAmbientInterval = 5f;
-    public float maxAmbientInterval = 15f;
+    //public float minAmbientInterval = 25f;
+    //public float maxAmbientInterval = 40f;
 
     public void PlayCaughtSound()
     {

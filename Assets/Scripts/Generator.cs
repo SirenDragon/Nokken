@@ -66,7 +66,7 @@ public class Generator : MonoBehaviour
         scoreManager = FindObjectOfType<Score>();
         if (scoreManager == null)
         {
-            Debug.LogError("Score script not found in the scene!");
+            //Debug.LogError("Score script not found in the scene!");
         }
 
         // Get the AudioSource component
@@ -80,7 +80,7 @@ public class Generator : MonoBehaviour
         playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         if (playerTransform == null)
         {
-            Debug.LogError("Player not found in the scene! Ensure the Player GameObject has the 'Player' tag.");
+            //Debug.LogError("Player not found in the scene! Ensure the Player GameObject has the 'Player' tag.");
         }
 
         // cache original states for restore

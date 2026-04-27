@@ -222,7 +222,7 @@ public class MonsterMovement : MonoBehaviour
                 // play ambient occasionally
                 if (monsterAudio != null && monsterAudio.ambientSounds != null && monsterAudio.ambientSounds.Count > 0)
                 {
-                    if (Random.value < 0.5f)
+                    if (Random.value < 0.1f)
                     {
                         monsterAudio.PlayAmbientSound();
                         Debug.Log("Playing ambient sound.");

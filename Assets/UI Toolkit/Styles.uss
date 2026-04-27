@@ -32,8 +32,8 @@
     border-right-width: 4px;
     border-bottom-width: 4px;
     border-left-width: 4px;
-    margin-top: 6px;
-    margin-bottom: 56px;
+    margin-top: 34px;
+    margin-bottom: 3px;
     color: rgb(164, 148, 121);
     -unity-text-outline-color: rgb(58, 48, 48);
     -unity-text-outline-width: 2px;
@@ -167,4 +167,39 @@
     border-right-color: rgba(97, 216, 255, 0.5);
     border-top-color: rgba(97, 216, 255, 0.5);
     border-bottom-color: rgba(97, 216, 255, 0.5);
+}
+
+#ExitButton {
+    border-top-width: 9px;
+    border-right-width: 9px;
+    border-bottom-width: 9px;
+    border-left-width: 9px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgb(94, 43, 43);
+    border-left-color: rgb(46, 26, 26);
+    border-right-color: rgb(46, 26, 26);
+    border-top-color: rgb(46, 26, 26);
+    border-bottom-color: rgb(46, 26, 26);
+    color: rgb(46, 26, 26);
+    font-size: 47px;
+    -unity-font-style: italic;
+    -unity-font-definition: url("project://database/Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Fonts/PerfectDOSVGA437.ttf?fileID=12800000&guid=74a5091d8707f334b9a5c31ef71a64ba&type=3#PerfectDOSVGA437");
+    -unity-text-align: middle-center;
+    letter-spacing: 15px;
+}
+
+#ExitButton:hover {
+    background-color: rgb(255, 64, 64);
+    color: rgb(255, 162, 162);
+    border-left-color: rgb(255, 162, 162);
+    border-right-color: rgb(255, 162, 162);
+    border-top-color: rgb(255, 162, 162);
+    border-bottom-color: rgb(255, 162, 162);
+}
+
+#ExitButton:active {
+    scale: 0.9 0.9;
 }

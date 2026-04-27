@@ -13,7 +13,6 @@ public class startscreenswitch : MonoBehaviour
     [SerializeField] private AudioMixerSnapshot paused;
     public AudioMixerSnapshot startScreenSnapshot;
     public AudioMixerSnapshot deckSnapshot;
-    [SerializeField] private int sceneBuildIndex = 1;
     [SerializeField] private float sceneTransitionTime = 0.6f;
 
     private bool isLoadingScene;
@@ -113,11 +112,6 @@ public class startscreenswitch : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(4f);
 
-        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneBuildIndex);
-
-        while (loadOperation != null && !loadOperation.isDone)
-        {
-            yield return null;
-        }
+        SceneManager.LoadSceneAsync("SampleScene");
     }
 }

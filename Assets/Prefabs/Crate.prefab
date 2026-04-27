@@ -224,7 +224,7 @@ MonoBehaviour:
   isBroken: 0
   roomIndex: 0
   crateMaterial: {fileID: 2100000, guid: d17e800be2af82745a1c298b36dddbcc, type: 2}
-  brokenCrateMaterial: {fileID: 2100000, guid: 96a836583c75147778a8a39f9f4efc9b, type: 2}
+  brokenCrateMaterial: {fileID: 2100000, guid: 13365119d58415940b65c510ef22f6fb, type: 2}
   repairSound: {fileID: 8300000, guid: 2953e0c4c2145d84ea4e14471c253de0, type: 3}
   breakSound: {fileID: 8300000, guid: 229ca5a464f749f4fbd0d84e6b5a65c9, type: 3}
   repairDistance: 6
