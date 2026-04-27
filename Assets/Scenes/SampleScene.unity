@@ -291,6 +291,10 @@ PrefabInstance:
       propertyPath: roomIndex
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3218027813316962053, guid: bc6b4577e1998d4469df5927ab492827, type: 3}
+      propertyPath: uiDocument
+      value: 
+      objectReference: {fileID: 1323826560}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -597,6 +601,10 @@ PrefabInstance:
       propertyPath: roomIndex
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 3218027813316962053, guid: bc6b4577e1998d4469df5927ab492827, type: 3}
+      propertyPath: uiDocument
+      value: 
+      objectReference: {fileID: 1323826560}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -779,6 +787,10 @@ PrefabInstance:
       propertyPath: roomIndex
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3218027813316962053, guid: bc6b4577e1998d4469df5927ab492827, type: 3}
+      propertyPath: uiDocument
+      value: 
+      objectReference: {fileID: 1323826560}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1198,6 +1210,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26a180e101c73884699b181f53661340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiDocument: {fileID: 1323826560}
+  chargerOffMaterial: {fileID: 2100000, guid: 7f71f715c3b350a4b96e739535614b2e, type: 2}
+  chargerOnMaterial: {fileID: 2100000, guid: f8654f1261dd9e4438832cb409e02a79, type: 2}
   useDistance: 5
   generator: {fileID: 1809103026}
 --- !u!65 &195654532
@@ -3361,7 +3376,7 @@ MonoBehaviour:
   startingGeneratorScore: 1
   generatorScoreText: {fileID: 1545691341}
   timerText: {fileID: 1675049690}
-  startingTime: 300
+  startingTime: 240
   pauseGameOnWin: 1
   pauseAudioOnWin: 1
   playerFail: {fileID: 1762263802}
@@ -4465,6 +4480,10 @@ PrefabInstance:
       propertyPath: roomIndex
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3218027813316962053, guid: bc6b4577e1998d4469df5927ab492827, type: 3}
+      propertyPath: uiDocument
+      value: 
+      objectReference: {fileID: 1323826560}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5783,6 +5802,10 @@ PrefabInstance:
       propertyPath: roomIndex
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 3218027813316962053, guid: bc6b4577e1998d4469df5927ab492827, type: 3}
+      propertyPath: uiDocument
+      value: 
+      objectReference: {fileID: 1323826560}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7428,6 +7451,10 @@ PrefabInstance:
       propertyPath: roomIndex
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3218027813316962053, guid: bc6b4577e1998d4469df5927ab492827, type: 3}
+      propertyPath: uiDocument
+      value: 
+      objectReference: {fileID: 1323826560}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15169,6 +15196,10 @@ PrefabInstance:
       value: Generator
       objectReference: {fileID: 0}
     - target: {fileID: 2835646732057569526, guid: f5b5b224969b12841acb610b44ad59a2, type: 3}
+      propertyPath: uiDocument
+      value: 
+      objectReference: {fileID: 1323826560}
+    - target: {fileID: 2835646732057569526, guid: f5b5b224969b12841acb610b44ad59a2, type: 3}
       propertyPath: 'objectsToToggle.Array.data[0]'
       value: 
       objectReference: {fileID: 1810027879}
@@ -15300,6 +15331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crate
       objectReference: {fileID: 0}
+    - target: {fileID: 3218027813316962053, guid: bc6b4577e1998d4469df5927ab492827, type: 3}
+      propertyPath: uiDocument
+      value: 
+      objectReference: {fileID: 1323826560}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

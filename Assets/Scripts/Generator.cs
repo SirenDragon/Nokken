@@ -3,9 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class Generator : MonoBehaviour
 {
+    [SerializeField] private UIDocument uiDocument;
+
+    private ProgressBar repairProgress;
+    private Label eTip;
+
     public bool isBroken = false; // Tracks if the generator is broken
 
     [SerializeField] private Material generatorMaterial; // Material for the generator
@@ -60,6 +66,13 @@ public class Generator : MonoBehaviour
 
     void Start()
     {
+        eTip = uiDocument.rootVisualElement.Q<Label>("ETip");
+
+        repairProgress = uiDocument.rootVisualElement.Q<ProgressBar>("RepairProgress");
+        repairProgress.lowValue = 0f;
+        repairProgress.highValue = 1f;
+        repairProgress.value = 0f;
+
         generatorRenderer = GetComponentsInChildren<Renderer>(true);
 
         // Find the Score script in the scene
@@ -151,6 +164,8 @@ public class Generator : MonoBehaviour
             StopCoroutine(repairCoroutine);
             repairCoroutine = null;
             Debug.Log("Repair interrupted.");
+            repairProgress.visible = false; // Hide the progress bar
+            repairProgress.value = 0; // Reset the progress bar
 
             // Stop the repair sound
             if (audioSource != null && audioSource.isPlaying)
@@ -178,10 +193,18 @@ public class Generator : MonoBehaviour
         float repairTime = 10f; // Time required to repair the generator
         float elapsedTime = 0f;
 
+        if (repairProgress != null)
+            repairProgress.visible = true;
+
         while (elapsedTime < repairTime)
         {
             // Increment the elapsed time
             elapsedTime += Time.deltaTime;
+
+            if (repairProgress != null)
+            {
+                repairProgress.value = Mathf.Clamp01(elapsedTime / repairTime); // Update the progress bar (0..1)
+            }
 
             // Wait for the next frame
             yield return null;
@@ -189,6 +212,13 @@ public class Generator : MonoBehaviour
 
         // Repair the generator
         RepairGenerator();
+
+        // hide and reset progress UI
+        if (repairProgress != null)
+        {
+            repairProgress.visible = false;
+            repairProgress.value = 0f;
+        }
 
         repairCoroutine = null; // Reset the coroutine reference
     }
@@ -259,6 +289,8 @@ public class Generator : MonoBehaviour
             rend.material = generatorMaterial; // Change material back to indicate repair
         }
         Debug.Log($"{gameObject.name} has been repaired!");
+        eTip.visible = false; // Hide the "Press E to Repair" tip
+
 
         var profile = FindObjectOfType<UserProfileData>();
         if (profile != null)
@@ -312,12 +344,19 @@ public class Generator : MonoBehaviour
     {
         // Detect when the player's cursor is hovering over the generator
         isPlayerHovering = true;
+
+        if (isBroken)
+        {
+            eTip.visible = true; // Show the "Press E to Repair" tip
+        }
     }
 
     private void OnMouseExit()
     {
         // Detect when the player's cursor stops hovering over the generator
         isPlayerHovering = false;
+        eTip.visible = false; // Hide the "Press E to Repair" tip
+        repairProgress.visible = false;
 
         // Stop the repair process if the player moves away
         if (repairCoroutine != null)

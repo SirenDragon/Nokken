@@ -1,9 +1,15 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem; // Required for the Input System
+using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class Boxes : MonoBehaviour
 {
+    [SerializeField] private UIDocument uiDocument;
+
+    private ProgressBar repairProgress;
+    private Label eTip;
+
     public bool isBroken = false; // Tracks if the box is broken
 
     [Tooltip("The room index this box belongs to.")]
@@ -85,6 +91,8 @@ public class Boxes : MonoBehaviour
             StopCoroutine(repairCoroutine);
             repairCoroutine = null;
             Debug.Log("Repair interrupted.");
+            repairProgress.visible = false; // Hide the progress bar
+            repairProgress.value = 0; // Reset the progress bar
 
             // Stop the repair sound
             if (audioSource != null && audioSource.isPlaying)
@@ -99,6 +107,13 @@ public class Boxes : MonoBehaviour
 
     void Start()
     {
+        eTip = uiDocument.rootVisualElement.Q<Label>("ETip");
+
+        repairProgress = uiDocument.rootVisualElement.Q<ProgressBar>("RepairProgress");
+        repairProgress.lowValue = 0f;
+        repairProgress.highValue = 1f;
+        repairProgress.value = 0f;
+
         boxRenderer = GetComponent<Renderer>();
         boxRenderer.material = crateMaterial; // Set initial material to crateMaterial
 
@@ -172,6 +187,7 @@ public class Boxes : MonoBehaviour
         isBroken = false;
         boxRenderer.material = crateMaterial; // Change material back to crateMaterial
         Debug.Log($"{gameObject.name} has been repaired!");
+        eTip.visible = false; // Hide the "Press E to Repair" tip
 
         // Stop the repair sound
         if (audioSource != null && audioSource.isPlaying)
@@ -193,12 +209,19 @@ public class Boxes : MonoBehaviour
     {
         // Detect when the player's cursor is hovering over the box
         isPlayerHovering = true;
+
+        if (isBroken)
+        {
+            eTip.visible = true; // Show the "Press E to Repair" tip
+        }
     }
 
     private void OnMouseExit()
     {
         // Detect when the player's cursor stops hovering over the box
         isPlayerHovering = false;
+        eTip.visible = false; // Hide the "Press E to Repair" tip
+        repairProgress.visible = false;
 
         // Stop the repair process if the player moves away
         if (repairCoroutine != null)
@@ -233,10 +256,18 @@ public class Boxes : MonoBehaviour
         float repairTime = 5f; // Time required to repair the box
         float elapsedTime = 0f;
 
+        if (repairProgress != null)
+            repairProgress.visible = true;
+
         while (elapsedTime < repairTime)
         {
             // Increment the elapsed time
             elapsedTime += Time.deltaTime;
+
+            if (repairProgress != null)
+            {
+                repairProgress.value = Mathf.Clamp01(elapsedTime / repairTime); // Update the progress bar (0..1)
+            }
 
             // Wait for the next frame
             yield return null;
@@ -244,6 +275,13 @@ public class Boxes : MonoBehaviour
 
         // Repair the box
         RepairBox();
+
+        // hide and reset progress UI
+        if (repairProgress != null)
+        {
+            repairProgress.visible = false;
+            repairProgress.value = 0f;
+        }
 
         repairCoroutine = null; // Reset the coroutine reference
     }

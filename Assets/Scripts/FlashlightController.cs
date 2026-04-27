@@ -187,12 +187,12 @@ public class FlashlightController : MonoBehaviour
                 {
                     bool hitIsEnemy = hit.collider.CompareTag("enemy");
 
-                    if (debugDrawRays)
-                    {
-                        Debug.DrawLine(rayOrigin, hit.point, hitIsEnemy ? Color.green : Color.red, 0.5f);
-                        Debug.DrawRay(hit.point, Vector3.up * 0.2f, hitIsEnemy ? Color.green : Color.red, 0.5f);
-                        Debug.Log($"Flashlight ray hit: {hit.collider.name} (Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}), isEnemy={hitIsEnemy}");
-                    }
+                    //if (debugDrawRays)
+                    //{
+                    //    Debug.DrawLine(rayOrigin, hit.point, hitIsEnemy ? Color.green : Color.red, 0.5f);
+                    //    Debug.DrawRay(hit.point, Vector3.up * 0.2f, hitIsEnemy ? Color.green : Color.red, 0.5f);
+                    //    Debug.Log($"Flashlight ray hit: {hit.collider.name} (Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}), isEnemy={hitIsEnemy}");
+                    //}
 
                     if (hitIsEnemy)
                     {

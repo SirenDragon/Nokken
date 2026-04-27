@@ -1,7 +1,16 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Charger : MonoBehaviour
 {
+    [SerializeField] private UIDocument uiDocument;
+
+    private Label spaceTip;
+
+    private Renderer[] chargerRenderer;
+    [SerializeField] private Material chargerOffMaterial;
+    [SerializeField] private Material chargerOnMaterial;
+
     [Tooltip("Maximum distance the player can be from the charger to charge.")]
     public float useDistance = 3f;
 
@@ -14,6 +23,8 @@ public class Charger : MonoBehaviour
 
     void Start()
     {
+        spaceTip = uiDocument.rootVisualElement.Q<Label>("SpaceTip");
+
         playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         weaponCharge = Object.FindObjectOfType<WeaponCharge>();
         if (weaponCharge == null)
@@ -28,6 +39,16 @@ public class Charger : MonoBehaviour
             if (generator == null)
                 Debug.LogWarning("Generator not found in the scene. Chargers will not be blocked by generator state.");
         }
+
+        // cache renderers (including children) to swap materials
+        chargerRenderer = GetComponentsInChildren<Renderer>(true);
+
+        // subscribe to generator state changes (if generator exists)
+        Generator.OnGeneratorStateChanged += OnGeneratorStateChanged;
+
+        // initialize material according to current generator state (if available)
+        bool generatorOnline = generator == null || !generator.isBroken;
+        ApplyMaterial(generatorOnline ? chargerOnMaterial : chargerOffMaterial);
     }
 
     void Update()
@@ -52,11 +73,20 @@ public class Charger : MonoBehaviour
 
             weaponCharge.SetAllowCharging(closeEnough && generatorOk);
         }
+
+        if (weaponCharge.allowCharging == true)
+        {
+            spaceTip.visible = true;
+        }
     }
 
     void OnMouseExit()
     {
         isPlayerHovering = false;
+        if (spaceTip != null)
+        {
+            spaceTip.visible = false;
+        }
         if (weaponCharge != null)
             weaponCharge.SetAllowCharging(false);
     }
@@ -65,12 +95,36 @@ public class Charger : MonoBehaviour
     {
         if (weaponCharge != null)
             weaponCharge.SetAllowCharging(false);
+
+        // unsubscribe
+        Generator.OnGeneratorStateChanged -= OnGeneratorStateChanged;
     }
 
     void OnDestroy()
     {
         if (weaponCharge != null)
             weaponCharge.SetAllowCharging(false);
+
+        // unsubscribe
+        Generator.OnGeneratorStateChanged -= OnGeneratorStateChanged;
+    }
+
+    // Callback from Generator.OnGeneratorStateChanged (true == online)
+    private void OnGeneratorStateChanged(bool online)
+    {
+        ApplyMaterial(online ? chargerOnMaterial : chargerOffMaterial);
+    }
+
+    // Helper: set material on all cached renderers (guard nulls)
+    private void ApplyMaterial(Material mat)
+    {
+        if (mat == null || chargerRenderer == null) return;
+        foreach (var rend in chargerRenderer)
+        {
+            if (rend == null) continue;
+            // If renderer uses multiple materials you can set sharedMaterial(s) or a specific material index here.
+            rend.material = mat;
+        }
     }
 
     // Optional: draw the usage radius in the editor

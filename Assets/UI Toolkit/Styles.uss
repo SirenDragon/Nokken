@@ -203,3 +203,37 @@
 #ExitButton:active {
     scale: 0.9 0.9;
 }
+
+#RepairProgress .unity-progress-bar__progress {
+    height: 30px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.71);
+    top: -3px;
+}
+
+#RepairProgress .unity-progress-bar__background {
+    flex-shrink: 0;
+    height: 30px;
+    background-color: rgba(140, 140, 140, 0.22);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-left-color: rgba(255, 255, 255, 0.5);
+    border-right-color: rgba(255, 255, 255, 0.5);
+    border-top-color: rgba(255, 255, 255, 0.5);
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+
+.tip {
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Fonts/PerfectDOSVGA437.ttf?fileID=12800000&guid=74a5091d8707f334b9a5c31ef71a64ba&type=3#PerfectDOSVGA437");
+    font-size: 29px;
+    word-spacing: -30px;
+    bottom: 257px;
+    visibility: hidden;
+    position: absolute;
+}

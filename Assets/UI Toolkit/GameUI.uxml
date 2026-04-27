@@ -25,11 +25,16 @@
             <ui:VisualElement style="flex-grow: 1; left: 28px; right: 1456px; position: absolute; height: 56px; top: 630px; align-items: center; justify-content: center;">
                 <ui:ProgressBar value="100" name="ChargerProgress" style="width: 429px;" />
             </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; bottom: 223px; top: 820px; position: absolute; align-items: center; justify-content: center; left: 40%; right: 40%;">
+                <ui:ProgressBar value="22" name="RepairProgress" style="width: 367px; background-color: rgba(255, 255, 255, 0); visibility: hidden;" />
+            </ui:VisualElement>
+            <ui:Label text="Hold &quot;E&quot; to Repair" name="ETip" class="tip" style="visibility: hidden;" />
+            <ui:Label text="Hold &quot;SPACE&quot; to Charge" name="SpaceTip" class="tip" style="visibility: hidden;" />
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="GameOver" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.36); visibility: hidden; position: absolute; top: 0; right: 0; left: 0; bottom: 0;">
         <ui:VisualElement style="flex-grow: 1; position: absolute; height: 502px; width: 842px; background-color: rgba(11, 26, 26, 0.65); align-items: center; border-left-color: rgba(183, 183, 183, 0.47); border-right-color: rgba(183, 183, 183, 0.47); border-top-color: rgba(183, 183, 183, 0.47); border-bottom-color: rgba(183, 183, 183, 0.47); border-top-left-radius: 14px; border-top-right-radius: 14px; border-bottom-right-radius: 14px; border-bottom-left-radius: 14px; border-top-width: 6px; border-right-width: 6px; border-bottom-width: 6px; border-left-width: 6px;">
-            <ui:Label text="GAME OVER" style="color: rgba(106, 106, 106, 0.69); -unity-font-definition: url(&quot;project://database/Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Fonts/PerfectDOSVGA437.ttf?fileID=12800000&amp;guid=74a5091d8707f334b9a5c31ef71a64ba&amp;type=3#PerfectDOSVGA437&quot;); font-size: 71px; top: 10px; -unity-text-outline-color: rgb(255, 255, 255); -unity-text-outline-width: 1px;" />
+            <ui:Label text="GAME OVER" style="color: rgba(161, 45, 45, 0.69); -unity-font-definition: url(&quot;project://database/Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Fonts/PerfectDOSVGA437.ttf?fileID=12800000&amp;guid=74a5091d8707f334b9a5c31ef71a64ba&amp;type=3#PerfectDOSVGA437&quot;); font-size: 71px; top: 10px; -unity-text-outline-color: rgb(255, 158, 158); -unity-text-outline-width: 1px;" />
             <ui:VisualElement name="ButtonContainer" style="flex-grow: 1; top: 102px;">
                 <ui:Button text="Restart" name="RestartGameOverButton" class="button" />
                 <ui:Button text="Quit" name="QuitGameOverButton" class="button" />
@@ -38,7 +43,7 @@
     </ui:VisualElement>
     <ui:VisualElement name="GameWon" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.36); position: absolute; top: 0; right: 0; left: 0; bottom: 0; visibility: hidden;">
         <ui:VisualElement style="flex-grow: 1; position: absolute; height: 502px; width: 842px; background-color: rgba(11, 26, 26, 0.65); align-items: center; border-left-color: rgba(183, 183, 183, 0.47); border-right-color: rgba(183, 183, 183, 0.47); border-top-color: rgba(183, 183, 183, 0.47); border-bottom-color: rgba(183, 183, 183, 0.47); border-top-left-radius: 14px; border-top-right-radius: 14px; border-bottom-right-radius: 14px; border-bottom-left-radius: 14px; border-top-width: 6px; border-right-width: 6px; border-bottom-width: 6px; border-left-width: 6px;">
-            <ui:Label text="YOU WON" style="color: rgba(106, 106, 106, 0.69); -unity-font-definition: url(&quot;project://database/Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Fonts/PerfectDOSVGA437.ttf?fileID=12800000&amp;guid=74a5091d8707f334b9a5c31ef71a64ba&amp;type=3#PerfectDOSVGA437&quot;); font-size: 71px; top: 10px; -unity-text-outline-color: rgb(255, 255, 255); -unity-text-outline-width: 1px;" />
+            <ui:Label text="YOU WON" style="color: rgba(77, 144, 101, 0.69); -unity-font-definition: url(&quot;project://database/Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Fonts/PerfectDOSVGA437.ttf?fileID=12800000&amp;guid=74a5091d8707f334b9a5c31ef71a64ba&amp;type=3#PerfectDOSVGA437&quot;); font-size: 71px; top: 10px; -unity-text-outline-color: rgb(192, 255, 170); -unity-text-outline-width: 1px;" />
             <ui:VisualElement name="ButtonContainer" style="flex-grow: 1; top: 102px;">
                 <ui:Button text="Restart" name="RestartGameWonButton" class="button" />
                 <ui:Button text="Quit" name="QuitGameWonButton" class="button" />
