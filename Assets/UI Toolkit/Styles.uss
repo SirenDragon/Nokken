@@ -237,3 +237,12 @@
     visibility: hidden;
     position: absolute;
 }
+
+#GoalButton:hover {
+    background-color: rgb(255, 64, 64);
+    color: rgb(255, 162, 162);
+    border-left-color: rgb(255, 162, 162);
+    border-right-color: rgb(255, 162, 162);
+    border-top-color: rgb(255, 162, 162);
+    border-bottom-color: rgb(255, 162, 162);
+}
