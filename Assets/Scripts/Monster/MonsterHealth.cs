@@ -1,50 +1,45 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
+using TMPro;
 
 public class MonsterHealth : MonoBehaviour
 {
+    [SerializeField] Score score;
+    [SerializeField] private UIDocument uiDocument;
+    private ProgressBar monsterHealth;
+
     [Tooltip("Maximum health of the monster.")]
     public int maxHealth = 3;
 
     [Tooltip("Optional reference to the MonsterMovement that controls the monster. If not set the script will find one in the scene.")]
     public MonsterMovement monsterMovement;
 
-    [Header("UI (optional)")]
-    [Tooltip("Assign an Image with Image.Type = Filled to show monster health.")]
-    public Image healthBar;
-    [Tooltip("Optional TextMeshProUGUI to show numeric HP (e.g. 2 / 3).")]
-    public TextMeshProUGUI healthText;
-    [Tooltip("Color for full health")]
-    public Color fullColor = Color.green;
-    [Tooltip("Color for low health")]
-    public Color lowColor = Color.red;
-    [Tooltip("When health <= this fraction, use lowColor")]
-    [Range(0f, 1f)]
-    public float lowThreshold = 0.33f;
-
-    [Header("Win UI")]
-    [Tooltip("Optional 'You Win' UI panel to enable when monster dies.")]
-    public GameObject youWinPanel;
-    [Tooltip("If true, time will be paused when player wins.")]
-    public bool pauseGameOnWin = true;
-    [Tooltip("If true, audio will be paused when player wins.")]
-    public bool pauseAudioOnWin = true;
-    [Tooltip("If true, LockedPlayerMovement components will be disabled on win.")]
-    public bool disablePlayerMovementOnWin = true;
-
-    [Header("Replay")]
-    [Tooltip("Optional UI Button on the You Win panel that restarts the scene.")]
-    public Button replayButton;
-    [Tooltip("If >= 0, loads this build index. Otherwise reloads the active scene.")]
-    public int replaySceneBuildIndex = -1;
-
     private int currentHealth;
 
     // store previous time settings so we can restore them if needed
     private float previousTimeScale = 1f;
     private float previousFixedDeltaTime = 0.02f;
+
+    private void Start()
+    {
+        if (uiDocument != null)
+        {
+            monsterHealth = uiDocument.rootVisualElement.Q<ProgressBar>("MonsterHealth");
+            if (monsterHealth != null)
+            {
+                // Set the progress bar range to use integer health directly
+                monsterHealth.lowValue = 0f;
+                monsterHealth.highValue = maxHealth;
+                monsterHealth.value = currentHealth;
+                monsterHealth.visible = true; // keep visible if you want; hide elsewhere if needed
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"MonsterHealth on '{name}' has no UIDocument assigned; MonsterHealth ProgressBar will not be updated.");
+        }
+    }
 
     void Awake()
     {
@@ -58,20 +53,6 @@ public class MonsterHealth : MonoBehaviour
         previousFixedDeltaTime = Time.fixedDeltaTime;
 
         UpdateHealthUI();
-
-        // ensure win UI hidden at start
-        if (youWinPanel != null)
-            youWinPanel.SetActive(false);
-
-        // wire replay button if assigned
-        if (replayButton != null)
-            replayButton.onClick.AddListener(OnReplayButtonClicked);
-    }
-
-    void OnDestroy()
-    {
-        if (replayButton != null)
-            replayButton.onClick.RemoveListener(OnReplayButtonClicked);
     }
 
     // Reduce health by amount (default 1). If health reaches zero, trigger Die().
@@ -98,21 +79,11 @@ public class MonsterHealth : MonoBehaviour
 
     void UpdateHealthUI()
     {
-        if (healthBar != null)
+        // Update UI Toolkit ProgressBar (uses integer range set in Start)
+        if (monsterHealth != null)
         {
-            float fill = (maxHealth > 0) ? (float)currentHealth / (float)maxHealth : 0f;
-            healthBar.fillAmount = Mathf.Clamp01(fill);
-
-            // color lerp or thresholded color
-            if (fill <= lowThreshold)
-                healthBar.color = lowColor;
-            else
-                healthBar.color = fullColor;
-        }
-
-        if (healthText != null)
-        {
-            healthText.text = $"{currentHealth} / {maxHealth}";
+            // If you set highValue = maxHealth, assign integer currentHealth directly
+            monsterHealth.value = Mathf.Clamp(currentHealth, (int)monsterHealth.lowValue, (int)monsterHealth.highValue);
         }
     }
 
@@ -123,32 +94,8 @@ public class MonsterHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("MonsterHealth: Monster defeated (health reached zero).");
-
-        // show You Win UI
-        if (youWinPanel != null)
-            youWinPanel.SetActive(true);
-
-        // optional global effects (pause, audio, disable movement)
-        if (pauseGameOnWin)
-        {
-            Time.timeScale = 0f;
-            Time.fixedDeltaTime = previousFixedDeltaTime * Time.timeScale;
-        }
-
-        if (pauseAudioOnWin)
-        {
-            AudioListener.pause = true;
-        }
-
-        if (disablePlayerMovementOnWin)
-        {
-            var movers = FindObjectsOfType<LockedPlayerMovement>();
-            foreach (var m in movers)
-            {
-                if (m != null)
-                    m.enabled = false;
-            }
-        }
+        //Win Game
+        score.HandleWin();
 
         // notify MonsterMovement (caught/respawn behaviour) if present
         if (monsterMovement != null)
@@ -167,21 +114,6 @@ public class MonsterHealth : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
-    }
-
-    // Called by the You Win panel button to replay the scene
-    private void OnReplayButtonClicked()
-    {
-        // ensure the global time and audio are in a good state before reloading
-        Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.02f;
-        AudioListener.pause = false;
-
-        int buildIndex = replaySceneBuildIndex >= 0 ? replaySceneBuildIndex : SceneManager.GetActiveScene().buildIndex;
-        Debug.Log($"MonsterHealth: Replay button pressed - loading scene build index {buildIndex}.");
-
-        // immediate load (simple). Use LoadSceneAsync if you want a progress UI.
-        SceneManager.LoadScene(buildIndex);
     }
 
     void OnValidate()

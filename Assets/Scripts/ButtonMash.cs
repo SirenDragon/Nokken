@@ -33,6 +33,8 @@ public class ButtonMash : MonoBehaviour
     int CompletedMashes = 0;
     int RequiredMashes = 3;
 
+    public bool IsQTEActive => qteActive || ultimateQteActive;
+
     bool qteActive = false;
 
     KeyCode[] possibleKeys = { KeyCode.R, KeyCode.F, KeyCode.G };

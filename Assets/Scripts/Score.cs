@@ -245,7 +245,7 @@ public class Score : MonoBehaviour
         SceneManager.LoadSceneAsync("menu");
     }
 
-    private void HandleWin()
+    public void HandleWin()
     {
         // stop the timer
         isTimerPaused = true;

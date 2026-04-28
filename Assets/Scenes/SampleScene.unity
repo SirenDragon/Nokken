@@ -605,6 +605,10 @@ PrefabInstance:
       propertyPath: uiDocument
       value: 
       objectReference: {fileID: 1323826560}
+    - target: {fileID: 3218027813316962053, guid: bc6b4577e1998d4469df5927ab492827, type: 3}
+      propertyPath: repairDistance
+      value: 4.29
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3011,7 +3015,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5764706, g: 0.105882354, b: 0.105882354, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3376,7 +3380,7 @@ MonoBehaviour:
   startingGeneratorScore: 1
   generatorScoreText: {fileID: 1545691341}
   timerText: {fileID: 1675049690}
-  startingTime: 240
+  startingTime: 300
   pauseGameOnWin: 1
   pauseAudioOnWin: 1
   playerFail: {fileID: 1762263802}
@@ -5804,6 +5808,10 @@ PrefabInstance:
       propertyPath: uiDocument
       value: 
       objectReference: {fileID: 1323826560}
+    - target: {fileID: 3218027813316962053, guid: bc6b4577e1998d4469df5927ab492827, type: 3}
+      propertyPath: repairDistance
+      value: 4.62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6821,6 +6829,7 @@ MonoBehaviour:
   uiDocument: {fileID: 1323826560}
   audioMixer: {fileID: 24100000, guid: 69877898e3e8f441ebe11740be3158e7, type: 2}
   lockedPlayerMovement: {fileID: 1776119509}
+  buttonMash: {fileID: 676838829}
 --- !u!1001 &1329064673
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8156,8 +8165,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Generator: 1'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8219,7 +8228,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -35.739014, w: 0}
+  m_margin: {x: 0, y: 0, z: -82.04411, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -8607,7 +8616,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0.5754717, g: 0.10586509, b: 0.10586509, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -9152,8 +9161,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Time: 0'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10975,8 +10984,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Boxes: 5'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12149,19 +12158,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de51819e1524f045ba7f08e02c46c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  score: {fileID: 676838828}
+  uiDocument: {fileID: 1323826560}
+  maxHealth: 1
   monsterMovement: {fileID: 1967442007}
-  healthBar: {fileID: 1921773361}
-  healthText: {fileID: 0}
-  fullColor: {r: 0, g: 1, b: 0, a: 1}
-  lowColor: {r: 1, g: 0, b: 0, a: 1}
-  lowThreshold: 0.33
-  youWinPanel: {fileID: 0}
-  pauseGameOnWin: 1
-  pauseAudioOnWin: 1
-  disablePlayerMovementOnWin: 1
-  replayButton: {fileID: 0}
-  replaySceneBuildIndex: 0
 --- !u!1 &2015763460
 GameObject:
   m_ObjectHideFlags: 0
@@ -15034,6 +15034,10 @@ PrefabInstance:
       propertyPath: uiDocument
       value: 
       objectReference: {fileID: 1323826560}
+    - target: {fileID: 3218027813316962053, guid: bc6b4577e1998d4469df5927ab492827, type: 3}
+      propertyPath: repairDistance
+      value: 4.74
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15172,14 +15176,14 @@ SceneRoots:
   m_Roots:
   - {fileID: 571069282}
   - {fileID: 2015763465}
+  - {fileID: 1045677289}
+  - {fileID: 1740617005}
   - {fileID: 1323826561}
+  - {fileID: 1937209308}
   - {fileID: 2123265420}
   - {fileID: 7858511084825462832}
   - {fileID: 3375796388873239436}
-  - {fileID: 1937209308}
   - {fileID: 1776119508}
-  - {fileID: 1045677289}
-  - {fileID: 1740617005}
   - {fileID: 440075297}
   - {fileID: 1849353746}
   - {fileID: 2060903183}

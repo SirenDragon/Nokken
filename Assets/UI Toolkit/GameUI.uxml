@@ -21,7 +21,7 @@
     </ui:VisualElement>
     <ui:VisualElement name="VisualUI" style="flex-grow: 1; position: absolute; top: 0%; right: 0%; left: 0%; bottom: 0%; display: flex; background-image: none; visibility: visible;">
         <ui:VisualElement style="flex-grow: 1; position: absolute; top: 0%; left: 0%; right: 0%; bottom: 0%; align-items: center;">
-            <ui:VisualElement name="Arrow" style="flex-grow: 1; width: 134px; position: absolute; bottom: 42px; top: 877px; background-image: url(&quot;project://database/Assets/UI%20Toolkit/Icons/arrow.png?fileID=2800000&amp;guid=b54bcec4a6603f545b646b5d4d28d9e7&amp;type=3#arrow&quot;); background-color: rgba(55, 55, 55, 0); -unity-background-scale-mode: scale-to-fit; opacity: 0.29; visibility: hidden;" />
+            <ui:VisualElement name="Arrow" style="flex-grow: 1; width: 134px; position: absolute; bottom: 70px; top: 866px; background-image: url(&quot;project://database/Assets/UI%20Toolkit/Icons/arrow.png?fileID=2800000&amp;guid=b54bcec4a6603f545b646b5d4d28d9e7&amp;type=3#arrow&quot;); background-color: rgba(55, 55, 55, 0); -unity-background-scale-mode: scale-to-fit; opacity: 0.29; visibility: visible;" />
             <ui:VisualElement style="flex-grow: 1; left: 28px; right: 1456px; position: absolute; height: 56px; top: 630px; align-items: center; justify-content: center;">
                 <ui:ProgressBar value="100" name="ChargerProgress" style="width: 429px;" />
             </ui:VisualElement>
@@ -30,6 +30,9 @@
             </ui:VisualElement>
             <ui:Label text="Hold &quot;E&quot; to Repair" name="ETip" class="tip" style="visibility: hidden;" />
             <ui:Label text="Hold &quot;SPACE&quot; to Charge" name="SpaceTip" class="tip" style="visibility: hidden;" />
+            <ui:VisualElement style="flex-grow: 1; position: absolute; top: 79px; left: 530px; right: 530px; bottom: 918px;">
+                <ui:ProgressBar value="22" name="MonsterHealth" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="GameOver" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.36); visibility: hidden; position: absolute; top: 0; right: 0; left: 0; bottom: 0;">

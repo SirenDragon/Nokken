@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebc7d9c7c2b195c4a82e7bb21149593b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiDocument: {fileID: 0}
   isBroken: 0
   roomIndex: 0
   crateMaterial: {fileID: 2100000, guid: d17e800be2af82745a1c298b36dddbcc, type: 2}

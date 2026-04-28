@@ -46,17 +46,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Brightness_Rim: 2
-    - Rim_Power: 5
-    - Toon_Ramp_Offset: 0.5
+    - Brightness_Rim: 5
+    - Rim_Power: 0.68
+    - Toon_Ramp_Offset: 0.527
     - Toon_Ramp_Smoothness: 0
-    - _Ambient: 1.27
+    - _Ambient: 3.63
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Toon_Ramp_Offset_Point: 0.5
+    - _Toon_Ramp_Offset_Point: 0.535
     m_Colors:
-    - Toon_Ramp_Tint: {r: 1, g: 0, b: 0, a: 1}
-    - _Color: {r: 1, g: 0.6367924, b: 0.6367924, a: 1}
+    - Toon_Ramp_Tint: {r: 1, g: 0, b: 0.1253066, a: 1}
+    - _Color: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &1786517697489966037

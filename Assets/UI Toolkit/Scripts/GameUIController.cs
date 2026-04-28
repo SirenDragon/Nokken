@@ -10,6 +10,7 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private UIDocument uiDocument;
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private LockedPlayerMovement lockedPlayerMovement;
+    [SerializeField]private ButtonMash buttonMash;
 
     private VisualElement pauseMenu;
     private VisualElement settingsMenu;
@@ -67,14 +68,9 @@ public class GameUIController : MonoBehaviour
 
     private void ToggleArrow()
     {
-        if (lockedPlayerMovement.isFacingTransitionNode)
-        {
-            arrow.visible = true;
-        }
-        else
-        {
-            arrow.visible = false;
-        }
+        bool facing = lockedPlayerMovement != null && lockedPlayerMovement.isFacingTransitionNode;
+        bool qteActive = buttonMash != null && buttonMash.IsQTEActive;
+        arrow.visible = facing && !qteActive;
     }
 
     private void OnResumeClicked()
