@@ -12160,7 +12160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: {fileID: 676838828}
   uiDocument: {fileID: 1323826560}
-  maxHealth: 1
+  maxHealth: 3
   monsterMovement: {fileID: 1967442007}
 --- !u!1 &2015763460
 GameObject:
